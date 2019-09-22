@@ -1,0 +1,27 @@
+/* Homepage */
+
+#header {
+    width: 1920px;
+    max-width: 100%;
+    height: 1258px;
+    background-image: url("../../img/wallpaper.jpg");
+    position: relative;
+}
+
+#accroche {
+    padding-top: 50%;
+}
+
+#accroche h2 {
+    background-color: rgba(255,255,255,0.5);
+    text-align: center;
+    display: block;
+    font-weight: 900;
+}
+
+#fleche {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 20px;
+}

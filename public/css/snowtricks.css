@@ -1,0 +1,10 @@
+/* Base */
+
+#navbarSupportedContent ul {
+    width: 100%;
+    justify-content: flex-end;
+}
+
+footer {
+    color: black;
+}
