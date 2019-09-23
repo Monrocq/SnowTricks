@@ -9,7 +9,7 @@
 }
 
 #accroche {
-    padding-top: 50%;
+    padding-top: 500px;
 }
 
 #accroche h2 {
@@ -24,4 +24,38 @@
     bottom: 0;
     right: 0;
     margin: 20px;
+}
+
+.trick {
+    height: 150px;
+    width: 200px;
+    position: relative;
+}
+
+.card img {
+    max-width: 100%;
+}
+
+.card-body {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(0,0,0,0.5);
+    padding: 5px;
+}
+
+.card-title {
+    display: inline-block;
+    color: white !important;
+    text-decoration: underline;
+}
+
+.float-right {
+    display: inline-block;
+}
+
+.float-right img {
+    border: solid black 2px;
+    border-radius: 5px;
+    padding: 3px;
 }

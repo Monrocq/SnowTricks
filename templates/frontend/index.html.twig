@@ -4,6 +4,12 @@
 
 {% block stylesheets %}
     <link href="css/frontend/homepage.css" rel="stylesheet">
+    <style>
+        .trick {
+            background-size: cover !important;
+            background-position: center;
+        }
+    </style>
 {% endblock %}
 
 {% block body %}
@@ -12,7 +18,33 @@
             <h2 class="align-middle">SnowTricks!<br>L'annuaire des Tricks de Snowboard</h2>
         </div>
         <a href="#">
-            <img src="img//open-iconic-master/svg/arrow-thick-bottom.svg" height="50" id="fleche">
+            <img src="img/open-iconic-master/svg/arrow-thick-bottom.svg" height="50" id="fleche">
         </a>
+    </div>
+
+    <div class="container mt-4">
+        <div class="row flex">
+            {% for trick in tricks %}
+                {% for image in images %}
+                    {% if image.trick.id == trick.id %}
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <a href="#">
+                                <div class="card trick" style="background: url('{{ image.url }}')">
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title">
+                                            {{ trick.title }}
+                                        </h5>
+                                        <div class="float-right">
+                                            <img src="img/open-iconic-master/svg/pencil.svg" height="25" style="background-color: yellow">
+                                        <img src="img/open-iconic-master/svg/trash.svg" height="25" style="background-color: red        ">
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}
