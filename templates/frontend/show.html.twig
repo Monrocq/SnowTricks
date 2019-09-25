@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SnowTricks{% endblock %}
+
+{% block stylesheets %}
+    <link href="/css/frontend/singlepage.css" rel="stylesheet">
+    <style>
+        .header {
+            background-size: cover !important;
+            background-position: center !important;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <div class="jumbotron" id="detail">
+            <div class="header" style="background: url('{% if une.url is defined and une.url != false %}/{{ une.url }}{% else %}/img/wallpaper.jpg{% endif %}')">
+                <div class="buttons">
+                    <img src="/img/open-iconic-master/svg/pencil.svg" height="25" style="background-color: yellow">
+                    <img src="/img/open-iconic-master/svg/trash.svg" height="25" style="background-color: red        ">
+                </div>
+                <div class="title">
+                    <h2 class="text-center">
+                        {{ trick.title }}
+                    </h2>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row mt-4">
+                    <div class="col-6 row mb-4 ml-4">
+                        {% for image in images %}
+                            <div class="col-3 image" style="background: url('/{{ image.url }}')">
+                                <a href="/{{ image.url }}">
+                                    <img src="/img/open-iconic-master/svg/zoom-in.svg" alt="zoom" id="zoom" height="30">
+                                </a>
+                            </div>
+                            <div class="col-1"></div>
+                        {% endfor %}
+                    </div>
+                    <div class="col-6 row">
+                        {% for video in videos %}
+                            <div class="col-1"></div>
+                            <div class="col-lg-5 col-md-11 video">
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <iframe class="embed-responsive-item" src="{{ video.url }}" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="row ml-4 mt-4 mr-4">
+                    <p>{{ trick.description }}</p>
+                </div>
+                <div class="row pb-4">
+                    <div class="col-8 offset-2">
+                        <div class="row">
+                            <div class="col-4 spec text-center">
+                                <span>Trick publié le :<br>{{ trick.createdAt|date('Y-m-d') }}</span>
+                            </div>
+                            <div class="col-3 offset-1 spec text-center">
+                                <span>Catégorie :<br>{{ group.title }}</span>
+                            </div>
+                            <div class="col-3 offset-1 spec text-center">
+                                <span>Mis à jour le :<br>{{ trick.updatedAt|date('Y-m-d') }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# Modal #}
+
+
+{% endblock %}

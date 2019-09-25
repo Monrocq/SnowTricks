@@ -45,7 +45,7 @@ class Trick
     private $images;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Group", inversedBy="tricks")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="tricks")
      */
     private $category;
 
@@ -144,12 +144,12 @@ class Trick
         return $this;
     }
 
-    public function getCategory(): ?Group
+    public function getCategory(): ?Category
     {
         return $this->category;
     }
 
-    public function setCategory(?Group $category): self
+    public function setCategory(?Category $category): self
     {
         $this->category = $category;
 

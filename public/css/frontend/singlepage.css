@@ -1,0 +1,59 @@
+/* La SinglePage */
+
+body {
+    background: url('../../img/wallpaper.jpg');
+}
+
+#detail {
+    padding: 0;
+    margin-top: 80px;
+}
+
+.header {
+    height: 250px;
+    margin: 0;
+    position: relative;
+}
+
+.title {
+    padding-top: 120px;
+    height: 100%;
+}
+
+h2 {
+    font-weight: 800;
+    text-decoration: underline;
+    background-color: rgba(255,255,255,0.5)
+}
+
+.buttons {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.image {
+    height: 100px;;
+    background-size: cover !important;
+    background-position: center !important;
+    position: relative;
+}
+
+#zoom {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.video {
+    padding: 0;
+}
+
+.spec {
+    border: solid black 1px;
+    border-radius: 8px;
+}
+
+span {
+    font-size: 0.8rem;
+}
