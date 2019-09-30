@@ -17,7 +17,9 @@
         <div class="jumbotron" id="detail">
             <div class="header" style="background: url('{% if une.url is defined and une.url != false %}/{{ une.url }}{% else %}/img/wallpaper.jpg{% endif %}')">
                 <div class="buttons">
-                    <img src="/img/open-iconic-master/svg/pencil.svg" height="25" style="background-color: yellow">
+                    <a href="{{ path('trick.edit', {id: trick.id}) }}">
+                        <img src="/img/open-iconic-master/svg/pencil.svg" height="25" style="background-color: yellow">
+                    </a>
                     <img src="/img/open-iconic-master/svg/trash.svg" height="25" style="background-color: red        ">
                 </div>
                 <div class="title">

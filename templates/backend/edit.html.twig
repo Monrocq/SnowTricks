@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SnowTricks{% endblock %}
+
+{% block stylesheets %}
+    <link href="/css/frontend/singlepage.css" rel="stylesheet">
+    <link href="/css/backend/crud-trick.css" rel="stylesheet">
+    <style>
+        .header {
+            background-size: cover !important;
+            background-position: center !important;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    {{ form_start(form) }}
+    <div class="container mt-4">
+        <div class="jumbotron" id="detail">
+            <div class="header" style="background: url('{% if une.url is defined and une.url != false %}/{{ une.url }}{% else %}/img/wallpaper.jpg{% endif %}')">
+                <div class="buttons">
+                    <a href="#imageUne" data-toggle="modal" data-target="#imageUne">
+                        <img src="/img/open-iconic-master/svg/pencil.svg" height="25" style="background-color: yellow">
+                    </a>
+                    <img src="/img/open-iconic-master/svg/trash.svg" height="25" style="background-color: red        ">
+                </div>
+                <div class="title">
+                    <h2 class="text-center">
+                        {{ trick.title }}
+                    </h2>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row mt-4">
+                    <div class="col-6 row mb-4 ml-4">
+                        {% for image in images %}
+                            <div class="col-3 image" style="background: url('/{{ image.url }}')">
+                                <a href="/{{ image.url }}">
+                                    <img src="/img/open-iconic-master/svg/zoom-in.svg" alt="zoom" id="zoom" height="30">
+                                </a>
+                            </div>
+                            <div class="col-1"></div>
+                        {% endfor %}
+                    </div>
+                    <div class="col-6 row">
+                        {% for video in videos %}
+                            <div class="col-1"></div>
+                            <div class="col-lg-5 col-md-11 video">
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <iframe class="embed-responsive-item" src="{{ video.url }}" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="row ml-4 mt-4 mr-4">
+                    {{ form_row(form.title) }}
+                </div>
+                <div class="row ml-4 mr-4 large">
+                    {{ form_row(form.description) }}
+                </div>
+                <div class="row ml-4 mr-4">
+                    {{ form_row(form.category) }}
+                </div>
+                <div class="row pb-4">
+                    <div class="col-2 offset-8">
+                        <button class="btn btn-danger">Delete</button>
+                    </div>
+                    <div class="col-2">
+                        <button class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-none">
+        {{ form_end(form) }}
+    </div>
+
+    {# Modal #}
+
+    <div class="modal fade" id="imageUne" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Image à la Une</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ form(type) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
