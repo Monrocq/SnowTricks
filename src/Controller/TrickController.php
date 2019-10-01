@@ -63,6 +63,14 @@ class TrickController extends AbstractController
     }
 
     /**
+     * @Route("/new", name="trick.new")
+     */
+    public function new()
+    {
+        $trick = new Trick();
+    }
+
+    /**
      * @Route("/edit/{id}", name="trick.edit")
      * @param Trick $trick
      * @param Request $request
@@ -75,6 +83,8 @@ class TrickController extends AbstractController
         $images = $this->imageRepo->findBy(array('trick' => $trick, 'une' => 0));
         $allImages = $this->imageRepo->findBy(array('trick' => $trick));
         $videos = $this->videoRepo->findBy(array('trick' => $trick));
+        $imagesTotal = $this->imageRepo->findAll();
+        $videosTotal = $this->videoRepo->findAll();
 
         //Création forms
         $uneFile = new Une();
@@ -91,30 +101,66 @@ class TrickController extends AbstractController
         $imageType->handleRequest($request);
         $videoType->handleRequest($request);
 
-        //Update Videos
+        //Videos
         if ($videoType->isSubmitted() && $videoType->isValid()) {
-            $id = $video->getId();
-            $movie = $this->videoRepo->findOneBy(array('id' => $id));
-            $movie->setUrl($video->getUrl());
-            $this->em->persist($movie);
-            $this->em->flush();
+
+            //Update
+            if ($this->videoRepo->findOneBy(array('id' => (int)$video->getId())) != null && (int)$video->getId() == (int)$this->videoRepo->findOneBy(array('id' => (int)$video->getId()))->getId()) {
+
+                $id = $video->getId();
+                $movie = $this->videoRepo->findOneBy(array('id' => $id));
+                $movie->setUrl($video->getUrl());
+                $this->em->persist($movie);
+                $this->em->flush();
+
+            } else { //Create
+
+                $id = $video->getId();
+                $movie = new Video();
+                $movie->setUrl($video->getUrl());
+                $movie->setTrick($trick);
+                $this->em->persist($movie);
+                $this->em->flush();
+
+            }
 
             $videos = $this->videoRepo->findBy(array('trick' => $trick));
         }
 
-        //Update Image
+        //Images
         if ($imageType->isSubmitted() && $imageType->isValid()) {
-            $file = $imageFile->getName();
-            $fileName = preg_replace('/\\.[^.\\s]{3,4}$/', '', basename($images[(int)$imageFile->getNb()]->getUrl())).'.'.$file->guessExtension();
-            $file->move($this->getParameter('upload_directory'), $fileName);
 
-            //if ($fileName != basename($images[(int)$imageFile->getNb()]->getUrl())) {
-                $images[(int)$imageFile->getNb()]->setUrl('img/tricks/'.$fileName);
-                $this->em->persist($images[(int)$imageFile->getNb()]);
+            //For Update
+            if ($this->imageRepo->findOneBy(array('id' => (int)$imageFile->getNb())) != null && (int)$imageFile->getNb() == $this->imageRepo->findOneBy(array('id' => (int)$imageFile->getNb()))->getId()) {
+
+                $imageToReplace = $this->imageRepo->findOneBy(array('id' => $imageFile->getNb()));
+                $file = $imageFile->getName();
+                $fileName = preg_replace('/\\.[^.\\s]{3,4}$/', '', basename($this->imageRepo->findOneBy(array('id' => $imageFile->getNb()))->getUrl())).'.'.$file->guessExtension();
+                $file->move($this->getParameter('upload_directory'), $fileName);
+
+                //if ($fileName != basename($images[(int)$imageFile->getNb()]->getUrl())) {
+                $imageToReplace->setUrl('img/tricks/'.$fileName);
+                $this->em->persist($imageToReplace);
                 $this->em->flush();
-            //}
+                //}
+
+            } else { //For Create
+
+                $file = $imageFile->getName();
+                $fileName = preg_replace('/\\.[^.\\s]{3,4}$/', '', strtolower($trick->getTitle())).((int)count($allImages)+1).'.'.$file->guessExtension();
+                $file->move($this->getParameter('upload_directory'), $fileName);
+
+                $newImage = new Image();
+                $newImage->setUrl('img/tricks/'.$fileName);
+                $newImage->setTrick($trick);
+                $newImage->setUne(0);
+                $this->em->persist($newImage);
+                $this->em->flush();
+
+            }
 
             $images = $this->imageRepo->findBy(array('trick' => $trick, 'une' => 0));
+
         }
 
 
@@ -161,9 +207,7 @@ class TrickController extends AbstractController
             return $this->redirectToRoute('trick.show', ['id' => $trick->getId()]);
         }
         
-        for($j = 0; $j < count($images); $j++) {
-            $nbImages[] = $j;
-        }
+
 
         //default
         return $this->render('backend/edit.html.twig', [
@@ -176,7 +220,8 @@ class TrickController extends AbstractController
             'forms' => $imageType->createView(),
             'videoForm' => $videoType->createView(),
             'numImages' => 0,
-            'nbImages' => $nbImages
+            'newValue' => (int)end($imagesTotal)->getId()+1,
+            'newValue2' => (int)end($videosTotal)->getId()+1
         ]);
     }
 }

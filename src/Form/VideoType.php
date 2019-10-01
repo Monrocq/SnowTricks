@@ -16,7 +16,7 @@ class VideoType extends AbstractType
     {
         $builder
             ->add('id', IntegerType::class, array(
-                'label' => 'Id de la vidéo à remplacer',
+                'label' => 'Id de la vidéo à ajouter/remplacer',
                 'attr' => array(
                     'placeholder' => 'Evolution : Relier cet input invisible en JS au bouton'
                 )

@@ -25,7 +25,7 @@ class Upload
      * @ORM\Column(type="integer", nullable=true)
      */
     private $nb;
-    
+
 
     public function getId(): ?int
     {
@@ -44,12 +44,12 @@ class Upload
         return $this;
     }
 
-    public function getNb(): ?int
+    public function getNb()
     {
         return $this->nb;
     }
 
-    public function setNb(?int $nb): self
+    public function setNb($nb): self
     {
         $this->nb = $nb;
 

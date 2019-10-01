@@ -36,7 +36,7 @@
                         <div class="row">
                             {% for key, image in images %}
                                 <div class="col-3 image" style="background: url('/{{ image.url }}')">
-                                    N°{{ key }}
+                                    N°{{ image.id }}
                                     <a role="button" data-toggle="collapse" href="#form" aria-expanded="false" aria-controls="form">
                                         <img src="/img/open-iconic-master/svg/pencil.svg" alt="zoom" id="zoom" height="30">
                                     </a>
@@ -44,16 +44,24 @@
                                 <div class="col-1"></div>
                                 {% set numImages = numImages + 1 %}
                             {% endfor %}
+                            <div class="col-1 mt-4">
+                                <a role="button" data-toggle="collapse" href="#form" aria-expanded="false" aria-controls="form">
+                                    <img src="/img/open-iconic-master/svg/plus.svg" height="30" style="background-color: greenyellow">
+                                </a>
+                            </div>
                         </div>
                         <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 mt-4">
                                     <div class="collapse" id="form">
                                         <div class="card card-body">
-                                            <h5 class="card-title">Remplacer l'image</h5>
+                                            <h5 class="card-title">Nouvelle image</h5>
                                             {{ form_start(forms) }}
-                                                {{ form_row(forms.nb) }}
+                                            {{ form_widget(forms.nb, { 'attr': {'class': "span12",
+                                                'placeholder': newValue}, 'label' : 'Id de l\'image', 'empty_data' : newValue }) }}
                                                 {# Nécessite du JS pour automatiser et donc hider ce champs #}
+                                                *Merci de ne pas modifier cette valeur sauf pour remplacer  une image actuelle.<br>
                                                 {{ form_row(forms.name) }}
+                                                ** Appliquer JS avant de passer en prod!!
                                             {{ form_end(forms) }}
                                         </div>
                                     </div>
@@ -74,13 +82,19 @@
                                 </a>
                             </div>
                         {% endfor %}
+                        <a role="button" data-toggle="collapse" href="#video" aria-expanded="false" aria-controls="video">
+                            <img src="/img/open-iconic-master/svg/plus.svg" height="30" style="background-color: greenyellow">
+                        </a>
                         <div class="collapse" id="video">
                             <div class="card card-body">
                                 {% if videoForm is defined %}
                                 {{ form_start(videoForm) }}
-                                    {{ form_row(videoForm.id) }}
+                                    {{ form_widget(videoForm.id, { 'attr': {'class': "span12",
+                                        'placeholder': newValue2}, 'label' : 'Id de la vidéo à ajouter/remplacer', 'empty_data' : newValue2 }) }}
+                                    *Merci de ne pas modifier cette valeur sauf pour remplacer une vidéo actuelle.
                                     {{ form_row(videoForm.url) }}
                                     {{ form_row(videoForm.submit) }}
+                                    ** Appliquer JS avant de passer en prod!!
                                     <div class="d-none">
                                         {{ form_end(videoForm) }}
                                     </div>
