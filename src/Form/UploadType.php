@@ -2,20 +2,24 @@
 
 namespace App\Form;
 
-use App\Entity\Une;
-use Symfony\Component\Form\AbstractType;
+use App\Entity\Upload;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class UneType extends AbstractType
+class UploadType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('name', FileType::class, array(
-                'label' => 'Choisissez la nouvelle image à la Une'
+                'label' => 'Choisissez la nouvelle image'
+            ))
+            ->add('nb', IntegerType::class, array(
+                'label' => 'numéro'
             ))
             ->add('submit', SubmitType::class)
         ;
@@ -24,7 +28,7 @@ class UneType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Une::class,
+            'data_class' => Upload::class,
         ]);
     }
 }

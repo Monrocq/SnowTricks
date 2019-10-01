@@ -14,7 +14,7 @@
 {% endblock %}
 
 {% block body %}
-    {{ form_start(form) }}
+
     <div class="container mt-4">
         <div class="jumbotron" id="detail">
             <div class="header" style="background: url('{% if une.url is defined and une.url != false %}/{{ une.url }}{% else %}/img/wallpaper.jpg{% endif %}')">
@@ -33,14 +33,32 @@
             <div class="container">
                 <div class="row mt-4">
                     <div class="col-6 row mb-4 ml-4">
-                        {% for image in images %}
-                            <div class="col-3 image" style="background: url('/{{ image.url }}')">
-                                <a href="/{{ image.url }}">
-                                    <img src="/img/open-iconic-master/svg/zoom-in.svg" alt="zoom" id="zoom" height="30">
-                                </a>
-                            </div>
-                            <div class="col-1"></div>
-                        {% endfor %}
+                        <div class="row">
+                            {% for key, image in images %}
+                                <div class="col-3 image" style="background: url('/{{ image.url }}')">
+                                    N°{{ key }}
+                                    <a role="button" data-toggle="collapse" href="#form" aria-expanded="false" aria-controls="form">
+                                        <img src="/img/open-iconic-master/svg/pencil.svg" alt="zoom" id="zoom" height="30">
+                                    </a>
+                                </div>
+                                <div class="col-1"></div>
+                                {% set numImages = numImages + 1 %}
+                            {% endfor %}
+                        </div>
+                        <div class="row">
+                                <div class="col-12">
+                                    <div class="collapse" id="form">
+                                        <div class="card card-body">
+                                            <h5 class="card-title">Remplacer l'image</h5>
+                                            {{ form_start(forms) }}
+                                                {{ form_row(forms.nb) }}
+                                                {# Nécessite du JS pour automatiser et donc hider ce champs #}
+                                                {{ form_row(forms.name) }}
+                                            {{ form_end(forms) }}
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
                     </div>
                     <div class="col-6 row">
                         {% for video in videos %}
@@ -53,6 +71,7 @@
                         {% endfor %}
                     </div>
                 </div>
+                {{ form_start(form) }}
                 <div class="row ml-4 mt-4 mr-4">
                     {{ form_row(form.title) }}
                 </div>
@@ -67,7 +86,7 @@
                         <button class="btn btn-danger">Delete</button>
                     </div>
                     <div class="col-2">
-                        <button class="btn btn-primary">Save</button>
+                        {{ form_row(form.submit) }}
                     </div>
                 </div>
             </div>
@@ -89,8 +108,12 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                {{ form_start(type) }}
                 <div class="modal-body">
-                    {{ form(type) }}
+                    {{ form_row(type.name) }}
+                </div>
+                <div class="modal-footer">
+                    {{ form_end(type) }}
                 </div>
             </div>
         </div>

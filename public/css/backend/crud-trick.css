@@ -3,3 +3,11 @@
 .large .form-group {
     width: 100%;
 }
+
+.row {
+    width: 100%;
+}
+
+.row .buttons {
+    font-size: 0.8rem;
+}

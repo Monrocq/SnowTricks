@@ -6,6 +6,7 @@ use App\Entity\Trick;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class TrickType extends AbstractType
 {
@@ -17,6 +18,7 @@ class TrickType extends AbstractType
             ->add('createdAt')
             ->add('updatedAt')
             ->add('category')
+            ->add('submit', SubmitType::class)
         ;
     }
 

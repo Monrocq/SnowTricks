@@ -5,8 +5,10 @@ namespace App\Controller;
 use App\Entity\Image;
 use App\Entity\Trick;
 use App\Entity\Une;
+use App\Entity\Upload;
 use App\Form\TrickType;
 use App\Form\UneType;
+use App\Form\UploadType;
 use App\Repository\TrickRepository;
 use App\Repository\ImageRepository;
 use App\Repository\VideoRepository;
@@ -66,28 +68,56 @@ class TrickController extends AbstractController
      */
     public function edit(Trick $trick, Request $request)
     {
+        //Initialisation des repos
         $une = $this->imageRepo->findOneBy(array('trick' => $trick, 'une' => 1));
         $images = $this->imageRepo->findBy(array('trick' => $trick, 'une' => 0));
         $allImages = $this->imageRepo->findBy(array('trick' => $trick));
         $videos = $this->videoRepo->findBy(array('trick' => $trick));
 
+        //Création forms
         $uneFile = new Une();
         $uneType = $this->createForm(UneType::class, $uneFile);
+        $imageFile = new Upload();
+        $imageType = $this->createForm(UploadType::class, $imageFile);
         $trickType = $this->createForm(TrickType::class, $trick);
 
-        $trickType->handleRequest($request);
+        //Manipulation forms
         $uneType->handleRequest($request);
+        $trickType->handleRequest($request);
+        $imageType->handleRequest($request);
 
-        //function could find the new name for the file
-        foreach ($allImages as $image) {
-            $liens[] = basename($image->getUrl());
+
+        if ($imageType->isSubmitted() && $imageType->isValid()) {
+            $file = $imageFile->getName();
+            dump($file);
+            $fileName = preg_replace('/\\.[^.\\s]{3,4}$/', '', basename($images[(int)$imageFile->getNb()]->getUrl())).'.'.$file->guessExtension();
+            $file->move($this->getParameter('upload_directory'), $fileName);
+
+            //if ($fileName != basename($images[(int)$imageFile->getNb()]->getUrl())) {
+                $images[(int)$imageFile->getNb()]->setUrl('img/tricks/'.$fileName);
+                $this->em->persist($images[(int)$imageFile->getNb()]);
+                $this->em->flush();
+            //}
+            dump($images);
+            dump($imageFile->getNb());
+            $images = $this->imageRepo->findBy(array('trick' => $trick, 'une' => 0));
+        } else {
+
         }
-        rsort($liens);
-        $newLink = (int)preg_replace('~\D~', '', $liens[0]);
-        $newLink += 1;
-        $newLink = strtolower($trick->getTitle()) . $newLink;
 
+
+        //New Image "à la une"?
         if ($uneType->isSubmitted() && $uneType->isValid()) {
+
+            //function could find the new name for the file
+            foreach ($allImages as $image) {
+                $liens[] = basename($image->getUrl());
+            }
+            rsort($liens);
+            $newLink = (int)preg_replace('~\D~', '', $liens[0]);
+            $newLink += 1;
+            $newLink = strtolower($trick->getTitle()) . $newLink;
+
             $file = $uneFile->getName();
             $extension = $file->guessExtension();
             $fileName = $newLink.'.'.$extension;
@@ -113,18 +143,27 @@ class TrickController extends AbstractController
             $images = $this->imageRepo->findBy(array('trick' => $trick, 'une' => 0));
         }
 
+        //Other modification?
         if ($trickType->isSubmitted() && $trickType->isValid()) {
             $this->em->flush();
             return $this->redirectToRoute('trick.show', ['id' => $trick->getId()]);
         }
+        
+        for($j = 0; $j < count($images); $j++) {
+            $nbImages[] = $j;
+        }
 
+        //default
         return $this->render('backend/edit.html.twig', [
             'trick' => $trick,
             'une' => $une,
             'images' => $images,
             'videos' => $videos,
             'form' => $trickType->createView(),
-            'type' => $uneType->createView()
+            'type' => $uneType->createView(),
+            'forms' => $imageType->createView(),
+            'numImages' => 0,
+            'nbImages' => $nbImages
         ]);
     }
 }
