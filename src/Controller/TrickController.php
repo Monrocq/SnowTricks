@@ -6,9 +6,11 @@ use App\Entity\Image;
 use App\Entity\Trick;
 use App\Entity\Une;
 use App\Entity\Upload;
+use App\Entity\Video;
 use App\Form\TrickType;
 use App\Form\UneType;
 use App\Form\UploadType;
+use App\Form\VideoType;
 use App\Repository\TrickRepository;
 use App\Repository\ImageRepository;
 use App\Repository\VideoRepository;
@@ -79,17 +81,30 @@ class TrickController extends AbstractController
         $uneType = $this->createForm(UneType::class, $uneFile);
         $imageFile = new Upload();
         $imageType = $this->createForm(UploadType::class, $imageFile);
+        $video = new Video();
+        $videoType = $this->createForm(VideoType::class, $video);
         $trickType = $this->createForm(TrickType::class, $trick);
 
         //Manipulation forms
         $uneType->handleRequest($request);
         $trickType->handleRequest($request);
         $imageType->handleRequest($request);
+        $videoType->handleRequest($request);
 
+        //Update Videos
+        if ($videoType->isSubmitted() && $videoType->isValid()) {
+            $id = $video->getId();
+            $movie = $this->videoRepo->findOneBy(array('id' => $id));
+            $movie->setUrl($video->getUrl());
+            $this->em->persist($movie);
+            $this->em->flush();
 
+            $videos = $this->videoRepo->findBy(array('trick' => $trick));
+        }
+
+        //Update Image
         if ($imageType->isSubmitted() && $imageType->isValid()) {
             $file = $imageFile->getName();
-            dump($file);
             $fileName = preg_replace('/\\.[^.\\s]{3,4}$/', '', basename($images[(int)$imageFile->getNb()]->getUrl())).'.'.$file->guessExtension();
             $file->move($this->getParameter('upload_directory'), $fileName);
 
@@ -98,11 +113,8 @@ class TrickController extends AbstractController
                 $this->em->persist($images[(int)$imageFile->getNb()]);
                 $this->em->flush();
             //}
-            dump($images);
-            dump($imageFile->getNb());
-            $images = $this->imageRepo->findBy(array('trick' => $trick, 'une' => 0));
-        } else {
 
+            $images = $this->imageRepo->findBy(array('trick' => $trick, 'une' => 0));
         }
 
 
@@ -162,6 +174,7 @@ class TrickController extends AbstractController
             'form' => $trickType->createView(),
             'type' => $uneType->createView(),
             'forms' => $imageType->createView(),
+            'videoForm' => $videoType->createView(),
             'numImages' => 0,
             'nbImages' => $nbImages
         ]);

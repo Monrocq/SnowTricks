@@ -62,13 +62,31 @@
                     </div>
                     <div class="col-6 row">
                         {% for video in videos %}
-                            <div class="col-1"></div>
-                            <div class="col-lg-5 col-md-11 video">
+                            <div class="col-lg-5 col-md-10 video">
                                 <div class="embed-responsive embed-responsive-16by9">
                                     <iframe class="embed-responsive-item" src="{{ video.url }}" allowfullscreen></iframe>
                                 </div>
                             </div>
+                            <div class="col-1">
+                                Id : {{ video.id }}
+                                <a role="button" data-toggle="collapse" href="#video" aria-expanded="false" aria-controls="video">
+                                    <img src="/img/open-iconic-master/svg/pencil.svg" alt="zoom" id="zoom" height="30">
+                                </a>
+                            </div>
                         {% endfor %}
+                        <div class="collapse" id="video">
+                            <div class="card card-body">
+                                {% if videoForm is defined %}
+                                {{ form_start(videoForm) }}
+                                    {{ form_row(videoForm.id) }}
+                                    {{ form_row(videoForm.url) }}
+                                    {{ form_row(videoForm.submit) }}
+                                    <div class="d-none">
+                                        {{ form_end(videoForm) }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
                     </div>
                 </div>
                 {{ form_start(form) }}
