@@ -38,10 +38,35 @@
                                 <div class="col-3 image" style="background: url('/{{ image.url }}')">
                                     N°{{ image.id }}
                                     <a role="button" data-toggle="collapse" href="#form" aria-expanded="false" aria-controls="form">
-                                        <img src="/img/open-iconic-master/svg/pencil.svg" alt="zoom" id="zoom" height="30">
+                                        <img src="/img/open-iconic-master/svg/pencil.svg" alt="zoom" class="zoom" height="30">
+                                    </a>
+                                    <a role="button" data-toggle="modal" data-target="#delete{{ image.id }}" href="#delete{{ image.id }}">
+                                        <img src="/img/open-iconic-master/svg/trash.svg" height="30" class="zoom2" style="background-color: red        ">
                                     </a>
                                 </div>
                                 <div class="col-1"></div>
+                                <!-- Modal -->
+                                <div class="modal fade" id="delete{{ image.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure to delete the picture n°{{ image.id }}?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <a href="{{ path('img.delete', {id: image.id}) }}" class="btn btn-danger">
+                                                    Delete
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 {% set numImages = numImages + 1 %}
                             {% endfor %}
                             <div class="col-1 mt-4">
@@ -80,6 +105,30 @@
                                 <a role="button" data-toggle="collapse" href="#video" aria-expanded="false" aria-controls="video">
                                     <img src="/img/open-iconic-master/svg/pencil.svg" alt="zoom" id="zoom" height="30">
                                 </a>
+                                <a role="button" data-toggle="modal" data-target="#del{{ video.id }}" href="#del{{ video.id }}">
+                                    <img src="/img/open-iconic-master/svg/trash.svg" height="30" style="background-color: red" class="mt-1">
+                                </a>
+                            </div>
+                            <div class="modal fade" id="del{{ video.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Are you sure to delete the video n°{{ video.id }}?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <a href="{{ path('video.delete', {id: video.id}) }}" class="btn btn-danger">
+                                                Delete
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         {% endfor %}
                         <a role="button" data-toggle="collapse" href="#video" aria-expanded="false" aria-controls="video">

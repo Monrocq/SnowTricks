@@ -63,6 +63,30 @@ class TrickController extends AbstractController
     }
 
     /**
+     * @Route("/image/{id}", name="img.delete")
+     */
+    public function deleteImage(Image $image) 
+    {
+        $trick = $image->getTrick()->getId();
+        $this->em->remove($image);
+        $this->em->flush();
+        return $this->redirectToRoute('trick.edit', ['id' => $trick]);
+    }
+
+    /**
+     * @param Video $video
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @Route("/video/{id}", name="video.delete")
+     */
+    public function deleteVideo(Video $video)
+    {
+        $trick = $video->getTrick()->getId();
+        $this->em->remove($video);
+        $this->em->flush();
+        return $this->redirectToRoute('trick.edit', ['id' => $trick]);
+    }
+
+    /**
      * @Route("/new", name="trick.new")
      */
     public function new(Request $request)
@@ -237,4 +261,6 @@ class TrickController extends AbstractController
             'newValue2' => (int)end($videosTotal)->getId()+1
         ]);
     }
+
+
 }
