@@ -20,7 +20,9 @@
                     <a href="{{ path('trick.edit', {id: trick.id}) }}">
                         <img src="/img/open-iconic-master/svg/pencil.svg" height="25" style="background-color: yellow">
                     </a>
-                    <img src="/img/open-iconic-master/svg/trash.svg" height="25" style="background-color: red        ">
+                    <a href="{{ path('trick.delete', {id: trick.id}) }}">
+                        <img src="/img/open-iconic-master/svg/trash.svg" height="25" style="background-color: red        ">
+                    </a>
                 </div>
                 <div class="title">
                     <h2 class="text-center">

@@ -63,6 +63,20 @@ class TrickController extends AbstractController
     }
 
     /**
+     * @param Image $image
+     * @Route("une/{id}", name="img.normal")
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deUne(Image $image)
+    {
+        $trick = $image->getTrick()->getId();
+        $image->setUne(0);
+        $this->em->persist($image);
+        $this->em->flush();
+        return $this->redirectToRoute('trick.edit', ['id' => $trick]);
+    }
+
+    /**
      * @Route("/image/{id}", name="img.delete")
      */
     public function deleteImage(Image $image) 
@@ -97,6 +111,11 @@ class TrickController extends AbstractController
 
         if ($trickType->isSubmitted() && $trickType->isValid()) {
             $this->em->persist($trick);
+            $img = new Image();
+            $img->setUrl('img/tricks/default.jpg');
+            $img->setUne(1);
+            $img->setTrick($trick);
+            $this->em->persist($img);
             $this->em->flush();
             return $this->redirectToRoute('trick.edit', ['id' => $trick->getId()]);
         }
@@ -262,5 +281,15 @@ class TrickController extends AbstractController
         ]);
     }
 
-
+    /**
+     * @param Trick $trick
+     * @Route("/delete/{id}", name="trick.delete")
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function delete(Trick $trick)
+    {
+        $this->em->remove($trick);
+        $this->em->flush();
+        return $this->redirectToRoute('frontend');
+    }
 }
