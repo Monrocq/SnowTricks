@@ -65,9 +65,22 @@ class TrickController extends AbstractController
     /**
      * @Route("/new", name="trick.new")
      */
-    public function new()
+    public function new(Request $request)
     {
         $trick = new Trick();
+        $trickType = $this->createForm(TrickType::class, $trick);
+        $trickType->handleRequest($request);
+
+        if ($trickType->isSubmitted() && $trickType->isValid()) {
+            $this->em->persist($trick);
+            $this->em->flush();
+            return $this->redirectToRoute('trick.edit', ['id' => $trick->getId()]);
+        }
+
+        return $this->render('backend/new.html.twig', [
+            'trick' => $trick,
+            'form' => $trickType->createView(),
+        ]);
     }
 
     /**

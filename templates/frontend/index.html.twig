@@ -25,6 +25,13 @@
 
         <div class="container mt-4" id="anchor">
             <h3 class="text-center">Les tricks</h3>
+            <div class="row">
+                <div class="col-1 offset-11">
+                    <a href="{{ path('trick.new') }}">
+                        <img src="/img/open-iconic-master/svg/plus.svg" height="30" style="background-color: greenyellow">
+                    </a>
+                </div>
+            </div>
             <div class="row flex">
                 {% for trick in tricks %}
                     {% for image in images %}
