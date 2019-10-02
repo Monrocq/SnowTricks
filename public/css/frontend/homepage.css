@@ -1,5 +1,9 @@
 /* Homepage */
 
+section {
+    position: relative;
+}
+
 #header {
     width: 1920px;
     max-width: 100%;
@@ -19,7 +23,7 @@
     font-weight: 900;
 }
 
-#fleche {
+.fleche {
     position: absolute;
     bottom: 0;
     right: 0;
@@ -65,3 +69,4 @@ h3 {
     text-decoration: underline;
     font-weight: 800;
 }
+
