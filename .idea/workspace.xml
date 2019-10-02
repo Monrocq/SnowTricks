@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9146d2db-7b97-4636-83ac-47d6f2202cc8" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/TrickController.php" afterPath="$PROJECT_DIR$/src/Controller/TrickController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Entity/Trick.php" afterPath="$PROJECT_DIR$/src/Entity/Trick.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Form/UploadType.php" afterPath="$PROJECT_DIR$/src/Form/UploadType.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/backend/edit.html.twig" afterPath="$PROJECT_DIR$/templates/backend/edit.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/frontend/index.html.twig" afterPath="$PROJECT_DIR$/templates/frontend/index.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/frontend/show.html.twig" afterPath="$PROJECT_DIR$/templates/frontend/show.html.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/var/log/dev.log" afterPath="$PROJECT_DIR$/var/log/dev.log" />
     </list>
     <ignored path="SnowTricks.iws" />
@@ -38,9 +37,44 @@
       <file leaf-file-name="FrontendController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Controller/FrontendController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-745">
+            <state relative-caret-position="-459">
               <caret line="9" column="46" selection-start-line="9" selection-start-column="46" selection-end-line="9" selection-end-column="46" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="edit.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/backend/edit.html.twig">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="603">
+              <caret line="169" column="37" selection-start-line="169" selection-start-column="37" selection-end-line="169" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UploadType.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Form/UploadType.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="357">
+              <caret line="21" column="12" selection-start-line="21" selection-start-column="12" selection-end-line="21" selection-end-column="12" />
+              <folding>
+                <element signature="e#28#50#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Trick.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Entity/Trick.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="9" column="63" selection-start-line="9" selection-start-column="63" selection-end-line="9" selection-end-column="63" />
+              <folding>
+                <element signature="e#30#65#0#PHP" expanded="true" />
+                <marker date="1570012634260" expanded="true" signature="422:1017" placeholder="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -48,8 +82,8 @@
       <file leaf-file-name="show.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/frontend/show.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="22" column="20" selection-start-line="22" selection-start-column="20" selection-end-line="22" selection-end-column="73" />
+            <state relative-caret-position="408">
+              <caret line="24" column="24" selection-start-line="24" selection-start-column="24" selection-end-line="24" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -67,7 +101,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html.twig" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/frontend/index.html.twig">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="510">
@@ -135,20 +169,20 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/Form/UneType.php" />
         <option value="$PROJECT_DIR$/public/css/backend/crud-trick.css" />
-        <option value="$PROJECT_DIR$/src/Form/UploadType.php" />
         <option value="$PROJECT_DIR$/src/Form/ImageType.php" />
         <option value="$PROJECT_DIR$/src/Form/TrickType.php" />
-        <option value="$PROJECT_DIR$/src/Entity/Trick.php" />
         <option value="$PROJECT_DIR$/src/Entity/Video.php" />
         <option value="$PROJECT_DIR$/src/Form/VideoType.php" />
         <option value="$PROJECT_DIR$/src/Entity/Upload.php" />
         <option value="$PROJECT_DIR$/templates/backend/new.html.twig" />
         <option value="$PROJECT_DIR$/public/css/frontend/singlepage.css" />
         <option value="$PROJECT_DIR$/config/routes.yaml" />
-        <option value="$PROJECT_DIR$/templates/backend/edit.html.twig" />
         <option value="$PROJECT_DIR$/templates/frontend/show.html.twig" />
         <option value="$PROJECT_DIR$/src/Controller/TrickController.php" />
         <option value="$PROJECT_DIR$/templates/frontend/index.html.twig" />
+        <option value="$PROJECT_DIR$/templates/backend/edit.html.twig" />
+        <option value="$PROJECT_DIR$/src/Form/UploadType.php" />
+        <option value="$PROJECT_DIR$/src/Entity/Trick.php" />
       </list>
     </option>
   </component>
@@ -585,15 +619,15 @@
       <option name="presentableId" value="Default" />
       <updated>1569173752780</updated>
       <workItem from="1569173753969" duration="42209000" />
-      <workItem from="1569842707046" duration="95203000" />
+      <workItem from="1569842707046" duration="98606000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="137412000" />
+    <option name="totallyTimeSpent" value="140815000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="0" width="974" height="1047" extended-state="0" />
+    <frame x="-7" y="0" width="974" height="1047" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25382933" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -899,16 +933,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Entity/Trick.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="601">
-          <caret line="189" column="4" selection-start-line="189" selection-start-column="4" selection-end-line="192" selection-end-column="5" />
-          <folding>
-            <marker date="1569937556856" expanded="true" signature="277:872" placeholder="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Entity/Category.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="530">
@@ -924,16 +948,6 @@
         <state relative-caret-position="34">
           <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Form/UploadType.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="35" selection-start-line="21" selection-start-column="35" selection-end-line="21" selection-end-column="35" />
-          <folding>
-            <element signature="e#28#50#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1003,32 +1017,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/backend/edit.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="382">
-          <caret line="24" column="33" selection-start-line="24" selection-start-column="33" selection-end-line="24" selection-end-column="33" />
-          <folding>
-            <element signature="e#521#649#0#HTML" expanded="true" />
-            <element signature="e#2372#2409#0#HTML" expanded="true" />
-            <element signature="e#4645#4682#0#HTML" expanded="true" />
-            <element signature="e#7129#7158#0#HTML" expanded="true" />
-            <element signature="e#9068#9105#0#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/base.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
           <caret line="21" column="61" selection-start-line="21" selection-start-column="61" selection-end-line="21" selection-end-column="61" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/FrontendController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-745">
-          <caret line="9" column="46" selection-start-line="9" selection-start-column="46" selection-end-line="9" selection-end-column="46" />
           <folding />
         </state>
       </provider>
@@ -1043,19 +1035,56 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/frontend/show.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="20" selection-start-line="22" selection-start-column="20" selection-end-line="22" selection-end-column="73" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/frontend/index.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
           <caret line="51" column="52" selection-start-line="51" selection-start-column="52" selection-end-line="51" selection-end-column="52" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/FrontendController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-459">
+          <caret line="9" column="46" selection-start-line="9" selection-start-column="46" selection-end-line="9" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/frontend/show.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="24" column="24" selection-start-line="24" selection-start-column="24" selection-end-line="24" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/backend/edit.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="603">
+          <caret line="169" column="37" selection-start-line="169" selection-start-column="37" selection-end-line="169" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Form/UploadType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="12" selection-start-line="21" selection-start-column="12" selection-end-line="21" selection-end-column="12" />
+          <folding>
+            <element signature="e#28#50#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Entity/Trick.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="63" selection-start-line="9" selection-start-column="63" selection-end-line="9" selection-end-column="63" />
+          <folding>
+            <element signature="e#30#65#0#PHP" expanded="true" />
+            <marker date="1570012634260" expanded="true" signature="422:1017" placeholder="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>

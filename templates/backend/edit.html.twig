@@ -168,19 +168,22 @@
                 </div>
                 <div class="row pb-4">
                     <div class="col-2 offset-8">
-                        <button class="btn btn-danger">Delete</button>
+                        {{ form_row(form.submit) }}
+                    </div>
+                    <div class="d-none">
+                        {{ form_end(form) }}
                     </div>
                     <div class="col-2">
-                        {{ form_row(form.submit) }}
+                        <form action="{{ path('trick.delete', {id: trick.id}) }}" onsubmit="return confirm('Etes vous vraiment sûr?')">
+                            <input type="submit" value="Delete" class="btn btn-danger">
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="d-none">
-        {{ form_end(form) }}
-    </div>
+
 
     {# Modal #}
 
