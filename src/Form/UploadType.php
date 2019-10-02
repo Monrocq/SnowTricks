@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Upload;
+use App\Services\Upload;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;

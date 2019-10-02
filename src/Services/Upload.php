@@ -1,25 +1,20 @@
 <?php
 
-namespace App\Entity;
+namespace App\Services;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\UneRepository")
- */
-class Une
+
+class Upload
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
+    
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    
     private $name;
+    
+    private $nb;
+
 
     public function getId(): ?int
     {
@@ -30,11 +25,23 @@ class Une
     {
         return $this->name;
     }
-
+    
     public function setName($name): self
     {
         $this->name = $name;
-
+    
+        return $this;
+    }
+    
+    public function getNb()
+    {
+        return $this->nb;
+    }
+    
+    public function setNb($nb): self
+    {
+        $this->nb = $nb;
+    
         return $this;
     }
 }

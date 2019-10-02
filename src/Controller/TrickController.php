@@ -4,8 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Image;
 use App\Entity\Trick;
-use App\Entity\Une;
-use App\Entity\Upload;
+use App\Services\Une;
+use App\Services\Upload;
 use App\Entity\Video;
 use App\Form\TrickType;
 use App\Form\UneType;
@@ -18,6 +18,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class TrickController extends AbstractController
 {
@@ -115,6 +116,7 @@ class TrickController extends AbstractController
             $img->setUrl('img/tricks/default.jpg');
             $img->setUne(1);
             $img->setTrick($trick);
+            $img->setCreatedAt(new \DateTime('now'));
             $this->em->persist($img);
             $this->em->flush();
             return $this->redirectToRoute('trick.edit', ['id' => $trick->getId()]);
@@ -259,6 +261,7 @@ class TrickController extends AbstractController
 
         //Other modification?
         if ($trickType->isSubmitted() && $trickType->isValid()) {
+            $trick->setUpdatedAt(new \DateTime('now'));
             $this->em->flush();
             return $this->redirectToRoute('trick.show', ['id' => $trick->getId()]);
         }

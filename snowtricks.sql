@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mar. 24 sep. 2019 à 11:50
+-- Généré le :  mer. 02 oct. 2019 à 16:32
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.2.18
 
@@ -25,21 +25,21 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `group`
+-- Structure de la table `category`
 --
 
-DROP TABLE IF EXISTS `group`;
-CREATE TABLE IF NOT EXISTS `group` (
+DROP TABLE IF EXISTS `category`;
+CREATE TABLE IF NOT EXISTS `category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table `group`
+-- Déchargement des données de la table `category`
 --
 
-INSERT INTO `group` (`id`, `title`) VALUES
+INSERT INTO `category` (`id`, `title`) VALUES
 (1, 'Grabs'),
 (2, 'Rotations'),
 (3, 'Flips'),
@@ -61,15 +61,15 @@ CREATE TABLE IF NOT EXISTS `image` (
   `une` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_C53D045FB281BE2E` (`trick_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `image`
 --
 
 INSERT INTO `image` (`id`, `trick_id`, `url`, `une`) VALUES
-(2, 3, 'img/tricks/mute1.jpg', 0),
-(3, 3, 'img/tricks/mute2.jpg', 1),
+(2, 3, 'img/tricks/mute1.jpg', 1),
+(3, 3, 'img/tricks/mute2.jpg', 0),
 (4, 4, 'img/tricks/sad1.jpg', 1),
 (5, 4, 'img/tricks/sad2.jpg', 0),
 (6, 5, 'img/tricks/indy.jpg', 1),
@@ -92,7 +92,9 @@ INSERT INTO `image` (`id`, `trick_id`, `url`, `une`) VALUES
 (23, 16, 'img/tricks/rodeo.jpg', 1),
 (24, 17, 'img/tricks/misty.jpg', 1),
 (25, 18, 'img/tricks/noseslide.jpg', 1),
-(26, 19, 'img/tricks/tailslide.jpg', 1);
+(26, 19, 'img/tricks/tailslide.jpg', 1),
+(40, 20, 'img/tricks/test1.png', 0),
+(44, 24, 'img/tricks/default.jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -114,7 +116,9 @@ CREATE TABLE IF NOT EXISTS `migration_versions` (
 INSERT INTO `migration_versions` (`version`, `executed_at`) VALUES
 ('20190923103549', '2019-09-23 10:36:40'),
 ('20190923114645', '2019-09-23 11:47:14'),
-('20190923165725', '2019-09-23 16:57:46');
+('20190923165725', '2019-09-23 16:57:46'),
+('20191002142020', '2019-10-02 14:21:30'),
+('20191002163112', '2019-10-02 16:32:01');
 
 -- --------------------------------------------------------
 
@@ -132,14 +136,14 @@ CREATE TABLE IF NOT EXISTS `trick` (
   `category_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_D8F0A91E12469DE2` (`category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `trick`
 --
 
 INSERT INTO `trick` (`id`, `title`, `description`, `created_at`, `updated_at`, `category_id`) VALUES
-(3, 'Mute', 'saisie de la carre frontside de la planche entre les deux pieds avec la main avant', '2019-09-24 00:00:00', NULL, 1),
+(3, 'Mute', 'Saisie de la carre frontside de la planche entre les deux pieds avec la main avant.', '2019-09-24 00:00:00', NULL, 1),
 (4, 'Sad/Melancholie/Style-Week', 'saisie de la carre backside de la planche, entre les deux pieds, avec la main avant ', '2019-09-24 00:00:00', NULL, 1),
 (5, 'Indy', 'Saisie de la carre frontside de la planche, entre les deux pieds, avec la main arrière', '2019-09-24 00:00:00', NULL, 1),
 (6, 'Stalefish', 'Saisie de la carre backside de la planche entre les deux pieds avec la main arrière ', '2019-09-24 00:00:00', NULL, 1),
@@ -155,7 +159,9 @@ INSERT INTO `trick` (`id`, `title`, `description`, `created_at`, `updated_at`, `
 (16, 'Rodeo', 'Certaines de ces rotations, bien qu\'initialement horizontales, font passer la tête en bas.', '2019-09-24 00:00:00', NULL, 4),
 (17, 'Misty', 'Bien que certaines de ces rotations soient plus faciles à faire sur un certain nombre de tours (ou de demi-tours) que d\'autres, il est en théorie possible de d\'attérir n\'importe quelle rotation désaxée avec n\'importe quel nombre de tours, en jouant sur la quantité de désaxage afin de se retrouver à la position verticale au moment voulu.', '2019-09-24 00:00:00', NULL, 4),
 (18, 'Nose Slide', 'L\'avant de la planche sur la barre', '2019-09-24 00:00:00', NULL, 5),
-(19, 'Tail Slide', 'L\'arrière de la planche sur la barre', '2019-09-24 00:00:00', NULL, 5);
+(19, 'Tail Slide', 'L\'arrière de la planche sur la barre', '2019-09-24 00:00:00', NULL, 5),
+(20, 'Test', 'Ceci est un test', '2014-01-01 00:00:00', NULL, 3),
+(24, 'Test1', 'Ceci est un test', '2014-01-01 00:00:00', NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -170,7 +176,15 @@ CREATE TABLE IF NOT EXISTS `video` (
   `url` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_7CC7DA2CB281BE2E` (`trick_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `video`
+--
+
+INSERT INTO `video` (`id`, `trick_id`, `url`) VALUES
+(2, 3, 'https://www.youtube.com/embed/M5NTCfdObfs'),
+(3, 20, 'https://www.youtube.com/embed/M5NTCfdObfs');
 
 --
 -- Contraintes pour les tables déchargées
@@ -186,7 +200,7 @@ ALTER TABLE `image`
 -- Contraintes pour la table `trick`
 --
 ALTER TABLE `trick`
-  ADD CONSTRAINT `FK_D8F0A91E12469DE2` FOREIGN KEY (`category_id`) REFERENCES `group` (`id`);
+  ADD CONSTRAINT `FK_D8F0A91E12469DE2` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`);
 
 --
 -- Contraintes pour la table `video`
