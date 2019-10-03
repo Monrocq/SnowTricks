@@ -60,6 +60,7 @@ class FrontendController extends AbstractController
     {
         $tricks = $this->trickRepo->findLastAll();
         $images = $this->imageRepo->findBy(array('une' => 1));
+        dump($tricks[0]);
         return $this->render('frontend/index.html.twig', [
             'controller_name' => 'FrontendController',
             'tricks' => $tricks,

@@ -23,26 +23,37 @@
             </a>
         </div>
 
-        <div class="container mt-4">
+        <div class="container mt-4" id="anchor">
             <h3 class="text-center">Les tricks</h3>
+            <div class="row">
+                <div class="col-1 offset-11">
+                    <a href="{{ path('trick.new') }}">
+                        <img src="/img/open-iconic-master/svg/plus.svg" height="30" style="background-color: greenyellow">
+                    </a>
+                </div>
+            </div>
             <div class="row flex">
                 {% for trick in tricks %}
                     {% for image in images %}
                         {% if image.trick.id == trick.id %}
                             <div class="col-lg-3 col-md-4 col-sm-6">
-                                <a href="{{ path('trick.show', {id: trick.id}) }}">
                                     <div class="card trick" style="background: url('{{ image.url }}')">
                                         <div class="card-body text-center">
                                             <h6 class="card-title">
-                                                {{ trick.title }}
+                                                <a href="{{ path('trick.show', {id: trick.id}) }}">
+                                                    {{ trick.title }}
+                                                </a>
                                             </h6>
                                             <div class="float-right">
-                                                <img src="/img/open-iconic-master/svg/pencil.svg" height="25" style="background-color: yellow">
-                                                <img src="/img/open-iconic-master/svg/trash.svg" height="25" style="background-color: red        ">
+                                                <a href="{{ path('trick.edit', {id: trick.id}) }}">
+                                                    <img src="/img/open-iconic-master/svg/pencil.svg" height="25" style="background-color: yellow">
+                                                </a>
+                                                <a href="{{ path('trick.delete', {id: trick.id}) }}">
+                                                    <img src="/img/open-iconic-master/svg/trash.svg" height="25" style="background-color: red        ">
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
-                                </a>
                             </div>
                         {% endif %}
                     {% endfor %}

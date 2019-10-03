@@ -6,9 +6,12 @@ use App\Repository\ImageRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TrickRepository")
+ * @UniqueEntity("title")
  */
 class Trick
 {
@@ -94,7 +97,7 @@ class Trick
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt($createdAt): self
     {
         $this->createdAt = $createdAt;
 
@@ -185,5 +188,10 @@ class Trick
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->title;
     }
 }

@@ -39,10 +39,16 @@ h2 {
     position: relative;
 }
 
-#zoom {
+.zoom {
     position: absolute;
     bottom: 0;
     right: 0;
+}
+
+.zoom2 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
 }
 
 .video {

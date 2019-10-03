@@ -17,8 +17,12 @@
         <div class="jumbotron" id="detail">
             <div class="header" style="background: url('{% if une.url is defined and une.url != false %}/{{ une.url }}{% else %}/img/wallpaper.jpg{% endif %}')">
                 <div class="buttons">
-                    <img src="/img/open-iconic-master/svg/pencil.svg" height="25" style="background-color: yellow">
-                    <img src="/img/open-iconic-master/svg/trash.svg" height="25" style="background-color: red        ">
+                    <a href="{{ path('trick.edit', {id: trick.id}) }}">
+                        <img src="/img/open-iconic-master/svg/pencil.svg" height="25" style="background-color: yellow">
+                    </a>
+                    <a href="{{ path('trick.delete', {id: trick.id}) }}">
+                        <img src="/img/open-iconic-master/svg/trash.svg" height="25" style="background-color: red        ">
+                    </a>
                 </div>
                 <div class="title">
                     <h2 class="text-center">
@@ -32,7 +36,7 @@
                         {% for image in images %}
                             <div class="col-3 image" style="background: url('/{{ image.url }}')">
                                 <a href="/{{ image.url }}">
-                                    <img src="/img/open-iconic-master/svg/zoom-in.svg" alt="zoom" id="zoom" height="30">
+                                    <img src="/img/open-iconic-master/svg/zoom-in.svg" alt="zoom" class="zoom" height="30">
                                 </a>
                             </div>
                             <div class="col-1"></div>

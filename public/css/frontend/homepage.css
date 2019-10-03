@@ -51,8 +51,11 @@ section {
 
 .card-title {
     display: inline-block;
-    color: white !important;
     text-decoration: underline;
+}
+
+.card-title a {
+    color: white !important;
 }
 
 .float-right {

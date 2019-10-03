@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SnowTricks{% endblock %}
+
+{% block stylesheets %}
+    <link href="/css/frontend/singlepage.css" rel="stylesheet">
+    <link href="/css/backend/crud-trick.css" rel="stylesheet">
+    <style>
+        .header {
+            background-size: cover !important;
+            background-position: center !important;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+
+    <div class="container mt-4">
+        <div class="jumbotron" id="detail">
+            <div class="container">
+                <h3>Création d'un tricks</h3>
+                <h6>Vous pourrez rajouter des images et vidéos à la page suivante</h6>
+                {{ form_start(form) }}
+                <div class="row ml-4 mt-4 mr-4">
+                    {{ form_row(form.title) }}
+                </div>
+                <div class="row ml-4 mr-4 large">
+                    {{ form_row(form.description) }}
+                </div>
+                <div class="row ml-4 mr-4">
+                    {{ form_row(form.category) }}
+                </div>
+                <div class="row pb-4">
+                    <div class="col-2 offset-8">
+                        <button class="btn btn-danger">Delete</button>
+                    </div>
+                    <div class="col-2">
+                        {{ form_row(form.submit) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-none">
+        {{ form_end(form) }}
+    </div>
+
+    {# Modal #}
+
+
+{% endblock %}

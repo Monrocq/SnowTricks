@@ -1,0 +1,210 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SnowTricks{% endblock %}
+
+{% block stylesheets %}
+    <link href="/css/frontend/singlepage.css" rel="stylesheet">
+    <link href="/css/backend/crud-trick.css" rel="stylesheet">
+    <style>
+        .header {
+            background-size: cover !important;
+            background-position: center !important;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+
+    <div class="container mt-4">
+        <div class="jumbotron" id="detail">
+            <div class="header" style="background: url('{% if une.url is defined and une.url != false %}/{{ une.url }}{% else %}/img/wallpaper.jpg{% endif %}')">
+                <div class="buttons">
+                    <a href="#imageUne" data-toggle="modal" data-target="#imageUne">
+                        <img src="/img/open-iconic-master/svg/pencil.svg" height="25" style="background-color: yellow">
+                    </a>
+                    {% if une.url is defined %}
+                    <a href="{{ path('img.normal', {id: une.id}) }}">
+                        <img src="/img/open-iconic-master/svg/trash.svg" height="25" style="background-color: red        ">
+                    </a>
+                    {% endif %}
+                </div>
+                <div class="title">
+                    <h2 class="text-center">
+                        {{ trick.title }}
+                    </h2>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row mt-4">
+                    <div class="col-6 row mb-4 ml-4">
+                        <div class="row">
+                            {% for key, image in images %}
+                                <div class="col-3 image" style="background: url('/{{ image.url }}')">
+                                    N°{{ image.id }}
+                                    <a role="button" data-toggle="collapse" href="#form" aria-expanded="false" aria-controls="form">
+                                        <img src="/img/open-iconic-master/svg/pencil.svg" alt="zoom" class="zoom" height="30">
+                                    </a>
+                                    <a role="button" data-toggle="modal" data-target="#delete{{ image.id }}" href="#delete{{ image.id }}">
+                                        <img src="/img/open-iconic-master/svg/trash.svg" height="30" class="zoom2" style="background-color: red        ">
+                                    </a>
+                                </div>
+                                <div class="col-1"></div>
+                                <!-- Modal -->
+                                <div class="modal fade" id="delete{{ image.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure to delete the picture n°{{ image.id }}?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <a href="{{ path('img.delete', {id: image.id}) }}" class="btn btn-danger">
+                                                    Delete
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% set numImages = numImages + 1 %}
+                            {% endfor %}
+                            <div class="col-1 mt-4">
+                                <a role="button" data-toggle="collapse" href="#form" aria-expanded="false" aria-controls="form">
+                                    <img src="/img/open-iconic-master/svg/plus.svg" height="30" style="background-color: greenyellow">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row">
+                                <div class="col-12 mt-4">
+                                    <div class="collapse" id="form">
+                                        <div class="card card-body">
+                                            <h5 class="card-title">Nouvelle image</h5>
+                                            {{ form_start(forms) }}
+                                            {{ form_widget(forms.nb, { 'attr': {'class': "span12",
+                                                'placeholder': newValue}, 'label' : 'Id de l\'image', 'empty_data' : newValue }) }}
+                                                {# Nécessite du JS pour automatiser et donc hider ce champs #}
+                                                *Merci de ne pas modifier cette valeur sauf pour remplacer  une image actuelle.<br>
+                                                {{ form_row(forms.name) }}
+                                                ** Appliquer JS avant de passer en prod!!
+                                            {{ form_end(forms) }}
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col-6 row">
+                        {% for video in videos %}
+                            <div class="col-lg-5 col-md-10 video">
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <iframe class="embed-responsive-item" src="{{ video.url }}" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                            <div class="col-1">
+                                Id : {{ video.id }}
+                                <a role="button" data-toggle="collapse" href="#video" aria-expanded="false" aria-controls="video">
+                                    <img src="/img/open-iconic-master/svg/pencil.svg" alt="zoom" id="zoom" height="30">
+                                </a>
+                                <a role="button" data-toggle="modal" data-target="#del{{ video.id }}" href="#del{{ video.id }}">
+                                    <img src="/img/open-iconic-master/svg/trash.svg" height="30" style="background-color: red" class="mt-1">
+                                </a>
+                            </div>
+                            <div class="modal fade" id="del{{ video.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Are you sure to delete the video n°{{ video.id }}?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <a href="{{ path('video.delete', {id: video.id}) }}" class="btn btn-danger">
+                                                Delete
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <a role="button" data-toggle="collapse" href="#video" aria-expanded="false" aria-controls="video">
+                            <img src="/img/open-iconic-master/svg/plus.svg" height="30" style="background-color: greenyellow">
+                        </a>
+                        <div class="collapse" id="video">
+                            <div class="card card-body">
+                                {% if videoForm is defined %}
+                                {{ form_start(videoForm) }}
+                                    {{ form_widget(videoForm.id, { 'attr': {'class': "span12",
+                                        'placeholder': newValue2}, 'label' : 'Id de la vidéo à ajouter/remplacer', 'empty_data' : newValue2 }) }}
+                                    *Merci de ne pas modifier cette valeur sauf pour remplacer une vidéo actuelle.
+                                    {{ form_row(videoForm.url) }}
+                                    {{ form_row(videoForm.submit) }}
+                                    ** Appliquer JS avant de passer en prod!!
+                                    <div class="d-none">
+                                        {{ form_end(videoForm) }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{ form_start(form) }}
+                <div class="row ml-4 mt-4 mr-4">
+                    {{ form_row(form.title) }}
+                </div>
+                <div class="row ml-4 mr-4 large">
+                    {{ form_row(form.description) }}
+                </div>
+                <div class="row ml-4 mr-4">
+                    {{ form_row(form.category) }}
+                </div>
+                <div class="row pb-4">
+                    <div class="col-2 offset-8">
+                        {{ form_row(form.submit) }}
+                    </div>
+                    <div class="d-none">
+                        {{ form_end(form) }}
+                    </div>
+                    <div class="col-2">
+                        <form action="{{ path('trick.delete', {id: trick.id}) }}" onsubmit="return confirm('Etes vous vraiment sûr?')">
+                            <input type="submit" value="Delete" class="btn btn-danger">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    {# Modal #}
+
+    <div class="modal fade" id="imageUne" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Image à la Une</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {{ form_start(type) }}
+                <div class="modal-body">
+                    {{ form_row(type.name) }}
+                </div>
+                <div class="modal-footer">
+                    {{ form_end(type) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

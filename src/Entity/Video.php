@@ -31,6 +31,13 @@ class Video
         return $this->id;
     }
 
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
     public function getUrl(): ?string
     {
         return $this->url;
@@ -54,4 +61,5 @@ class Video
 
         return $this;
     }
+
 }
