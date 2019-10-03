@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SnowTricks{% endblock %}
+
+{% block stylesheets %}
+    <meta http-equiv="refresh" content="10;URL={{ path('logout') }}">
+{% endblock %}
+
+{% block body %}
+<p>
+    Vous n'avez pas verifié votre adresse mail comme vous nous l'avions demandé,<br>
+notre administrateur va être au courant de la tentative de fraude que vous essayé de commetre.<br>
+    Ce genre d'attitude est inadmissible dans notre communauté.<br>
+    Continuez ainsi et nous engagerons des poursuites à votre égard auprès de notre webmaster.<br>
+Vous allez être déconnecter.<br>
+Au revoir.
+</p>
+{% endblock %}

@@ -56,16 +56,8 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/trick", name="trick")
-     */
-    public function index()
-    {
-        
-    }
-
-    /**
      * @param Image $image
-     * @Route("une/{id}", name="img.normal")
+     * @Route("/une/{id}/delete", name="img.normal")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deUne(Image $image)
@@ -78,7 +70,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/image/{id}", name="img.delete")
+     * @Route("/image/{id}/delete", name="img.delete")
      */
     public function deleteImage(Image $image) 
     {
@@ -91,7 +83,7 @@ class TrickController extends AbstractController
     /**
      * @param Video $video
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     * @Route("/video/{id}", name="video.delete")
+     * @Route("/video/{id}/delete", name="video.delete")
      */
     public function deleteVideo(Video $video)
     {
@@ -102,7 +94,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="trick.new")
+     * @Route("/tricks/new", name="trick.new")
      */
     public function new(Request $request)
     {
@@ -111,12 +103,14 @@ class TrickController extends AbstractController
         $trickType->handleRequest($request);
 
         if ($trickType->isSubmitted() && $trickType->isValid()) {
+            $trick->setCreatedAt(new \DateTime('now'));
+            $trick->setUser($this->getUser());
             $this->em->persist($trick);
+
             $img = new Image();
             $img->setUrl('img/tricks/default.jpg');
             $img->setUne(1);
             $img->setTrick($trick);
-            $img->setCreatedAt(new \DateTime('now'));
             $this->em->persist($img);
             $this->em->flush();
             return $this->redirectToRoute('trick.edit', ['id' => $trick->getId()]);
@@ -129,7 +123,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/edit/{id}", name="trick.edit")
+     * @Route("/tricks/details/{id}/edit", name="trick.edit")
      * @param Trick $trick
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
@@ -286,7 +280,7 @@ class TrickController extends AbstractController
 
     /**
      * @param Trick $trick
-     * @Route("/delete/{id}", name="trick.delete")
+     * @Route("tricks/details/{id}/delete", name="trick.delete")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function delete(Trick $trick)

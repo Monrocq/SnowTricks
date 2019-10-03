@@ -58,6 +58,10 @@ class FrontendController extends AbstractController
      */
     public function index()
     {
+        if ($this->container->get('security.authorization_checker')->isGranted('ROLE_NONE')) {
+            return $this->render('security/logout.html.twig');
+        }
+
         $tricks = $this->trickRepo->findLastAll();
         $images = $this->imageRepo->findBy(array('une' => 1));
         dump($tricks[0]);

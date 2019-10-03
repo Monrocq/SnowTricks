@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SecurityController!{% endblock %}
+
+{% block stylesheets %}
+    <link href="/css/frontend/singlepage.css" rel="stylesheet">
+    <style>
+
+    </style>
+{% endblock %}
+
+{% block body %}
+
+    <div class="container mt-4">
+        <div class="jumbotron">
+            {% if error %}
+                <div class="alert alert-danger">
+                    {{ error.messageKey | trans(error.messagedata, 'security') }}
+                </div>
+            {% endif %}
+            <h2>S'enregistrer </h2><br>
+            {{ form_start(form) }}
+                <input type="hidden" name="token" value="{{ csrf_token('validation') }}"/>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+{% endblock %}
