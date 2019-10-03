@@ -167,6 +167,7 @@ class User implements UserInterface, \Serializable
     public function getUsername()
     {
         // TODO: Implement getUsername() method.
+        return $this->username;
     }
     /**
      * Removes sensitive data from the user.

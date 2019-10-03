@@ -21,6 +21,11 @@
                 {{ message }}
             </div>
         {% endfor %}
+        {% for message in app.flashes('echec') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
 
         <h2>Se Connecter</h2><br>
         <form action="{{ path('login') }}" method="post">
@@ -35,6 +40,21 @@
 
             <button type="submit" class="btn btn-primary">Se connecter</button>
         </form>
+        <br>
+        <p>
+            <a class="" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                Mot de passe oublié?
+            </a>
+        </p>
+        <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+                <form action="{{ path('send') }}" method="post">
+                    <label for="username">Rentrez votre nom d'utilisateur</label><br>
+                    <input type="text" name="username" />
+                    <input type="submit" style="display: inline-blockp">
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 

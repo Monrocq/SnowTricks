@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\UserRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,6 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use App\Notification\ValidationNotification;
+use App\Notification\ResetNotification;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 class SecurityController extends AbstractController
@@ -19,12 +21,14 @@ class SecurityController extends AbstractController
     public function __construct(
         ObjectManager $em,
         UserPasswordEncoderInterface $encoder,
-        CsrfTokenManagerInterface $tokenManager
+        CsrfTokenManagerInterface $tokenManager,
+        UserRepository $repository
     )
     {
         $this->em = $em;
         $this->encoder = $encoder;
         $this->tokenManager = $tokenManager;
+        $this->repository = $repository;
     }
 
     /**
@@ -91,6 +95,68 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('login');
         }
         return new Response('Erreur dans le token');
+    }
+
+    /**
+     * @Route("/send", name="send")
+     */
+    public function send(Request $request, ResetNotification $notification)
+    {
+        $username = $request->request->get('username');
+        $token = $this->tokenManager->getToken('reset'.$username)->getValue();
+        $user = $this->repository->findOneBy(array('username' => $username));
+
+        if ($user == false) {
+            $this->addFlash('echec', 'Ce nom d\'utilisateur n\'existe pas.');
+            return $this->redirectToRoute('login');
+        }
+        
+        $notification->send($user, $token);
+
+        $user->setResetQueryAt(new \DateTime('now'));
+        $this->em->flush();
+
+        $this->addFlash('success', 'Mail de réinitialisation bien envoyé, checkez vos indésirables');
+        return $this->redirectToRoute('login');
+    }
+
+    /**
+     * @param User $user
+     * @param Request $request
+     * @Route("/reset/{id}", name="reset")
+     * @return Response
+     */
+    public function reset (User $user, Request $request)
+    {
+        $submittedToken = $request->query->get('token');
+        if ($this->isCsrfTokenValid('reset'.$user->getUsername(), $submittedToken)) {
+            return $this->render('security/reset.html.twig', [
+                'user' => $user
+            ]);
+        }
+        return new Response('Erreur dans le token');
+    }
+
+    /**
+     * @param User $user
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @Route("/resetting/{id}", name="resetting")
+     */
+    public function resetting (User $user, Request $request)
+    {
+        $submittedEmail = $request->request->get('_email');
+        $submittedPwd = $request->request->get('_password');
+        $submittedToken = $request->request->get('token');
+
+        if ($this->isCsrfTokenValid($user->getPassword(), $submittedToken)) {
+            $user->setEmail($submittedEmail);
+            $user->setPassword($this->encoder->encodePassword($user, $submittedPwd));
+            $this->em->flush();
+            return $this->redirectToRoute('frontend');
+            //Rajouter en JS un modal d'ouverture automatique pour confirmer la modification
+        }
+        return new Response('Vous essayez de violer le site, en cas de nouvelle tentative nous alerterons les forces de l\'ordre!');
     }
     
 }
