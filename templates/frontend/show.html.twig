@@ -15,15 +15,17 @@
 {% block body %}
     <div class="container mt-4">
         <div class="jumbotron" id="detail">
-            <div class="header" style="background: url('{% if une.url is defined and une.url != false %}/{{ une.url }}{% else %}/img/wallpaper.jpg{% endif %}')">
+            <div class="header" style="background: url('{% if une.url is defined and une.url != false %}/{{ une.url }}{% elseif replace != null %}/{{ replace }}{% else %}/img/wallpaper.jpg{% endif %}')">
+                {% if app.user %}
                 <div class="buttons">
                     <a href="{{ path('trick.edit', {id: trick.id}) }}">
                         <img src="/img/open-iconic-master/svg/pencil.svg" height="25" style="background-color: yellow">
                     </a>
-                    <a href="{{ path('trick.delete', {id: trick.id}) }}">
+                    <a href="#exampleModal" role="button" data-toggle="modal" data-target="#exampleModal">
                         <img src="/img/open-iconic-master/svg/trash.svg" height="25" style="background-color: red        ">
                     </a>
                 </div>
+                {% endif %}
                 <div class="title">
                     <h2 class="text-center">
                         {{ trick.title }}
@@ -71,11 +73,64 @@
                         </div>
                     </div>
                 </div>
+                {% if app.user %}
+                <hr>
+                <div class="row">
+                    <div class="col-8 offset-1">
+                        {{ form_start(form) }}
+                        {{ form_row(form.content) }}
+                    </div>
+                    <div class="col-2">
+                        {{ form_row(form.submit) }}
+                        {{ form_end(form) }}
+                    </div>
+
+                </div>
+                {% endif %}
+                <hr>
+                {% for comment in comments %}
+                    <div class="row">
+                    <div class="col-2 offset-2">
+                        {% if comment.user.photo %}
+                            <img src="/{{ comment.user.photo.url }}" width="50" height="50">
+                        {% else %}
+                            <img src="/img/avatar/default/avatar.jpg" width="50" height="50">
+                        {% endif %}
+                    </div>
+                    <div class="col-6">
+                        <div class="row ml-2">
+                            Le : {{ comment.createdAt|date('Y-m-d') }}, Par : {{ comment.user.firstname }} {{ comment.user.lastname }}{% if comment.updatedAt %} (Mis à jour le : {{ comment.updatedAt|date('Y-m-d') }}){% endif %}<br>
+                        </div>
+                        <div class="row content">
+                            {{ comment.content }}
+                        </div>
+                    </div>
+                    </div>
+                    <br>
+                {% endfor %}
             </div>
         </div>
     </div>
 
     {# Modal #}
 
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure to delete the trick "{{ trick.title }}"?
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-danger" href="{{ path('trick.delete', {id: trick.id}) }}">Supprimer</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}

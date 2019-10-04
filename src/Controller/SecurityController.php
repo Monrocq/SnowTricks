@@ -2,8 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Photo;
 use App\Entity\User;
+use App\Services\Une;
+use App\Form\UneType;
 use App\Form\UserType;
+use App\Repository\PhotoRepository;
 use App\Repository\UserRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,13 +26,15 @@ class SecurityController extends AbstractController
         ObjectManager $em,
         UserPasswordEncoderInterface $encoder,
         CsrfTokenManagerInterface $tokenManager,
-        UserRepository $repository
+        UserRepository $repository,
+        PhotoRepository $photoRepo
     )
     {
         $this->em = $em;
         $this->encoder = $encoder;
         $this->tokenManager = $tokenManager;
         $this->repository = $repository;
+        $this->photoRepo = $photoRepo;
     }
 
     /**
@@ -57,6 +63,7 @@ class SecurityController extends AbstractController
         $user = new User();
         $userType = $this->createForm(UserType::class, $user);
         $userType->handleRequest($request);
+        
 
         if ($userType->isSubmitted() && $userType->isValid()) {
             $user->setPassword($this->encoder->encodePassword($user, $user->getPassword()));
@@ -87,12 +94,44 @@ class SecurityController extends AbstractController
      */
     public function validation(User $user, Request $request)
     {
+        $photo = new Une();
+        $photoType = $this->createForm(UneType::class, $photo);
+        $photoType->handleRequest($request);
+        
         $submittedToken = $request->query->get('token');
-        dump($submittedToken);
-        if ($this->isCsrfTokenValid('validation'.$user->getId(), $submittedToken)) {
-            $user->setValidated(1);
+        
+        if ($photoType->isSubmitted() && $photoType->isValid()) {
+            $avatar = $this->photoRepo->findOneBy(array('user' => $user));
+            
+            if ($avatar == false) {
+                $picture = new Photo();
+                $picture->setUser($user);
+                $persist = true;
+            } else {
+                $picture = $avatar;
+                $persist = false;
+            }
+            
+            $file = $photo->getName(); //ça recup le fichier
+            $extension = $file->guessExtension();
+            $fileName = $user->getUsername().'.'.$extension;
+            $file->move($this->getParameter('avatar_directory'), $fileName);
+            
+            $picture->setUrl('img/avatar/'.$fileName);
+            if ($persist == true) {
+                $this->em->persist($picture);
+            }
             $this->em->flush();
             return $this->redirectToRoute('login');
+            
+        } else {
+            if ($this->isCsrfTokenValid('validation' . $user->getId(), $submittedToken)) {
+                $user->setValidated(1);
+                $this->em->flush();
+                return $this->render('security/validation.html.twig', [
+                    'form' => $photoType->createView()
+                ]);
+            }
         }
         return new Response('Erreur dans le token');
     }

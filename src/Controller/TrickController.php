@@ -109,7 +109,7 @@ class TrickController extends AbstractController
 
             $img = new Image();
             $img->setUrl('img/tricks/default.jpg');
-            $img->setUne(1);
+            $img->setUne(0);
             $img->setTrick($trick);
             $this->em->persist($img);
             $this->em->flush();
@@ -242,8 +242,6 @@ class TrickController extends AbstractController
             $newUne->setUrl('img/tricks/'.$fileName);
             $newUne->setUne(1);
             $newUne->setTrick($trick);
-
-            dump($newUne);
 
             $this->em->persist($newUne);
             $this->em->flush();

@@ -67,9 +67,20 @@ class User implements UserInterface, \Serializable
      */
     private $tricks;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="user")
+     */
+    private $comments;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Photo", mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $photo;
+
     public function __construct()
     {
         $this->tricks = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -293,6 +304,55 @@ class User implements UserInterface, \Serializable
             if ($trick->getUser() === $this) {
                 $trick->setUser(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getUser() === $this) {
+                $comment->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPhoto(): ?Photo
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(?Photo $photo): self
+    {
+        $this->photo = $photo;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newUser = $photo === null ? null : $this;
+        if ($newUser !== $photo->getUser()) {
+            $photo->setUser($newUser);
         }
 
         return $this;
