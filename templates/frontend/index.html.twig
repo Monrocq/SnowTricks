@@ -76,6 +76,9 @@
                         {% endif %}
                     {% endfor %}
                 {% endfor %}
+                <div class="pagination">
+                    {{ knp_pagination_render(tricks) }}
+                </div>
             </div>
             {% if nb > 15 %}
                 <a href="#">

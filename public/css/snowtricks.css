@@ -7,5 +7,11 @@
 
 footer {
     color: black;
+    background-color: #e4e4e4;
 }
 
+.pagination {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}

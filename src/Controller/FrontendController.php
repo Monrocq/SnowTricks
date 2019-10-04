@@ -14,6 +14,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 class FrontendController extends AbstractController
 {
@@ -37,6 +38,8 @@ class FrontendController extends AbstractController
      */
     private $categoryRepo;
 
+    private $paginator;
+
     private $commentRepo;
 
     /**
@@ -50,6 +53,7 @@ class FrontendController extends AbstractController
         VideoRepository $videoRepo,
         CategoryRepository $categoryRepo,
         CommentRepository $commentRepo,
+        PaginatorInterface $paginator,
         ObjectManager $em
     )
     {
@@ -58,21 +62,26 @@ class FrontendController extends AbstractController
         $this->videoRepo = $videoRepo;
         $this->categoryRepo = $categoryRepo;
         $this->commentRepo = $commentRepo;
+        $this->paginator = $paginator;
         $this->em = $em;
     }
 
     /**
      * @Route("/", name="frontend")
      */
-    public function index()
+    public function index(Request $request)
     {
         if ($this->container->get('security.authorization_checker')->isGranted('ROLE_NONE')) {
             return $this->render('security/logout.html.twig');
         }
 
-        $tricks = $this->trickRepo->findLastAll();
+        //$tricks = $this->trickRepo->findLastAll();
+        $tricks = $this->paginator->paginate($this->trickRepo->createQueryBuilder('p'),
+            $request->query->getInt('page', 1),
+            10
+        );
         $images = $this->imageRepo->findBy(array('une' => 1));
-        dump($tricks[0]);
+
         return $this->render('frontend/index.html.twig', [
             'controller_name' => 'FrontendController',
             'tricks' => $tricks,
@@ -109,7 +118,12 @@ class FrontendController extends AbstractController
         } else {
             $group['title'] = 'Null';
         }
-        $comments = $this->commentRepo->findBy(array('trick' => $trick), array('createdAt' => 'DESC'));
+        //$comments = $this->commentRepo->findBy(array('trick' => $trick), array('createdAt' => 'DESC'));
+        $trickId = $trick->getId();
+        $comments = $this->paginator->paginate($this->commentRepo->createQueryBuilder('p')->where("p.trick = :trick")->setParameter('trick', $trick)->orderBy('p.createdAt', 'DESC'),
+            $request->query->getInt('page', 1),
+            10
+        );
 
         if ($this->imageRepo->findBy(array('trick' => $trick))[0]) {
             $replace = $this->imageRepo->findBy(array('trick' => $trick))[0]->getUrl();
