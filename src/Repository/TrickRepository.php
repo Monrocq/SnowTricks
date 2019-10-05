@@ -27,7 +27,15 @@ class TrickRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    
+    public function findPage($page)
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.createdAt', 'DESC')
+            ->setMaxResults(10)
+            ->setFirstResult($page*10-10)
+            ->getQuery()
+            ->getResult();
+    }
 
     // /**
     //  * @return Trick[] Returns an array of Trick objects

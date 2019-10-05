@@ -108,8 +108,11 @@
                     </div>
                     <br>
                 {% endfor %}
-                <div class="pagination">
-                    {{ knp_pagination_render(comments) }}
+                <div class="pagination pb-4">
+                    <span>Page :</span>
+                    {% for page in pages %}
+                        <a href="{{ path('trick.show', {id: trick.id, page: page}) }}">  {{ page }}  </a>
+                    {% endfor %}
                 </div>
             </div>
         </div>

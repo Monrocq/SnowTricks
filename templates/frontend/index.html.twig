@@ -77,7 +77,10 @@
                     {% endfor %}
                 {% endfor %}
                 <div class="pagination">
-                    {{ knp_pagination_render(tricks) }}
+                    <span>Page :</span>
+                    {% for page in pages %}
+                        <a href="{{ path('page', {page: page}) }}">  {{ page }}  </a>
+                    {% endfor %}
                 </div>
             </div>
             {% if nb > 15 %}

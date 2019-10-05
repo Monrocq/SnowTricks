@@ -15,3 +15,12 @@ footer {
     justify-content: flex-end;
     width: 100%;
 }
+
+.pagination a {
+    border: solid black 1px;
+    padding: 4px 8px;
+}
+
+.pagination span {
+    margin-right: 5px;
+}
