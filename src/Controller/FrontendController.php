@@ -101,7 +101,7 @@ class FrontendController extends AbstractController
     }
 
     /**
-     * @Route("tricks/details/{id}/{page}", name="trick.show")
+     * @Route("tricks/details/{id}/page={page}", name="trick.show")
      */
     public function show(Trick $trick, Request $request, $page = 1)
     {

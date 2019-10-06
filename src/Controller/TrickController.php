@@ -8,7 +8,7 @@ use App\Services\MainPicture;
 use App\Services\Upload;
 use App\Entity\Video;
 use App\Form\TrickType;
-use App\Form\MainPictureTypeType;
+use App\Form\MainPictureType;
 use App\Form\UploadType;
 use App\Form\VideoType;
 use App\Repository\TrickRepository;
@@ -140,7 +140,7 @@ class TrickController extends AbstractController
 
         //Création forms
         $uneFile = new MainPicture();
-        $uneType = $this->createForm(MainPictureTypeType::class, $uneFile);
+        $uneType = $this->createForm(MainPictureType::class, $uneFile);
         $imageFile = new Upload();
         $imageType = $this->createForm(UploadType::class, $imageFile);
         $video = new Video();

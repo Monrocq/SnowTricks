@@ -33,7 +33,6 @@ h2 {
 }
 
 .image {
-    height: 100px;;
     background-size: cover !important;
     background-position: center !important;
     position: relative;
@@ -73,4 +72,30 @@ span {
     border-radius: 5px;
     margin-top: 5px;
     padding: 5px;
+}
+
+/* Responsive */
+
+/* Mobile */
+
+@media screen and (max-width: 640px) {
+    #medias {
+        display: none;
+    }
+
+    .image {
+        height: 200px;
+    }
+}
+
+/* PC */
+
+@media screen and (min-width: 640px){
+    #btn-medias {
+        display: none;
+    }
+
+    .image {
+        height: 100px;
+    }
 }

@@ -24,7 +24,7 @@ class MainPictureType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Une::class,
+            'data_class' => MainPicture::class,
         ]);
     }
 }

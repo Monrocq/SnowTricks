@@ -1,3 +1,4 @@
+
 /* Homepage */
 
 section {
@@ -31,10 +32,10 @@ section {
 }
 
 .trick {
-    height: 150px;
-    width: 200px;
     position: relative;
     margin: 20px auto;
+    height: 150px;
+    width: 200px;
 }
 
 .card img {
@@ -73,3 +74,20 @@ h3 {
     font-weight: 800;
 }
 
+/* Responsive */
+
+/* Mobile */
+
+@media screen and (max-width: 640px) {
+    .trick {
+
+    }
+}
+
+/* PC */
+
+@media screen {
+    .trick {
+
+    }
+}

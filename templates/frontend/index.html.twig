@@ -18,7 +18,7 @@
             <div id="accroche">
                 <h2 class="align-middle">SnowTricks!<br>L'annuaire des Tricks de Snowboard</h2>
             </div>
-            <a href="#">
+            <a href="#anchor">
                 <img src="/img/open-iconic-master/svg/arrow-thick-bottom.svg" height="50" class="fleche">
             </a>
         </div>
@@ -26,17 +26,18 @@
         <div class="container mt-4" id="anchor">
             <h3 class="text-center">Les tricks</h3>
             <div class="row">
-                <div class="col-1 offset-11">
+                <div class="col-1 offset-10">
                     <a href="{{ path('trick.new') }}">
                         <img src="/img/open-iconic-master/svg/plus.svg" height="30" style="background-color: greenyellow">
                     </a>
                 </div>
             </div>
             <div class="row flex">
+
                 {% for trick in tricks %}
                     {% for image in trick.getImages() %}
                         {% if image.getUne() %}
-                            <div class="col-lg-3 col-md-4 col-sm-6">
+                            <div class="col-lg-3 col-sm-6 col-xs-12">
                                     <div class="card trick" style="background: url('/{{ image.url }}')">
                                         <div class="card-body text-center">
                                             <h6 class="card-title">
@@ -54,7 +55,7 @@
                                             </div>
                                         </div>
                                     </div>
-                            </div>
+                                </div>
                             <div class="modal fade" id="exampleModal{{ trick.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
