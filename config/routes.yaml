@@ -5,3 +5,6 @@
 # img.delete:
 #  path: /img/{id}
 #  controller: App\Controller\TrickController::deleteImage
+
+logout:
+  path: /logout

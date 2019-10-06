@@ -63,3 +63,14 @@ h2 {
 span {
     font-size: 0.8rem;
 }
+
+/* Comments */
+
+
+
+.content {
+    border: solid black 1px;
+    border-radius: 5px;
+    margin-top: 5px;
+    padding: 5px;
+}

@@ -48,12 +48,30 @@
                                                 <a href="{{ path('trick.edit', {id: trick.id}) }}">
                                                     <img src="/img/open-iconic-master/svg/pencil.svg" height="25" style="background-color: yellow">
                                                 </a>
-                                                <a href="{{ path('trick.delete', {id: trick.id}) }}">
+                                                <a href="#exampleModal{{ trick.id }}" role="button" data-toggle="modal" data-target="#exampleModal{{ trick.id }}">
                                                     <img src="/img/open-iconic-master/svg/trash.svg" height="25" style="background-color: red        ">
                                                 </a>
                                             </div>
                                         </div>
                                     </div>
+                            </div>
+                            <div class="modal fade" id="exampleModal{{ trick.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Are you sure to delete the trick "{{ trick.title }}"?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a class="btn btn-danger" href="{{ path('trick.delete', {id: trick.id}) }}">Supprimer</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         {% endif %}
                     {% endfor %}

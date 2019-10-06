@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SecurityController!{% endblock %}
+
+{% block stylesheets %}
+<link href="/css/frontend/singlepage.css" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+
+<div class="container mt-4">
+    <div class="jumbotron">
+
+        {% if error %}
+            <div class="alert alert-danger">
+                {{ error.messageKey | trans(error.messagedata, 'security') }}
+            </div>
+        {% endif %}
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% for message in app.flashes('echec') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <h2>Se Connecter</h2><br>
+        <form action="{{ path('login') }}" method="post">
+            <div class="form-group">
+                <label for="username">Pseudo : </label>
+                <input type="text" id="username" name="_username" class="form-control" value="{{ last_username }}">
+            </div>
+            <div class="form-group">
+                <label for="password">Mot de passe : </label>
+                <input type="password" id="password" name="_password" class="form-control">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Se connecter</button>
+        </form>
+        <br>
+        <p>
+            <a class="" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                Mot de passe oublié?
+            </a>
+        </p>
+        <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+                <form action="{{ path('send') }}" method="post">
+                    <label for="username">Rentrez votre nom d'utilisateur</label><br>
+                    <input type="text" name="username" />
+                    <input type="submit" style="display: inline-blockp">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
