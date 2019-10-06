@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9146d2db-7b97-4636-83ac-47d6f2202cc8" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Form/UneType.php" afterPath="$PROJECT_DIR$/src/Form/MainPictureType.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Services/Une.php" afterPath="$PROJECT_DIR$/src/Services/MainPicture.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/FrontendController.php" afterPath="$PROJECT_DIR$/src/Controller/FrontendController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/TrickController.php" afterPath="$PROJECT_DIR$/src/Controller/TrickController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/frontend/index.html.twig" afterPath="$PROJECT_DIR$/templates/frontend/index.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/frontend/show.html.twig" afterPath="$PROJECT_DIR$/templates/frontend/show.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/var/log/dev.log" afterPath="$PROJECT_DIR$/var/log/dev.log" />
-    </list>
+    <list default="true" id="9146d2db-7b97-4636-83ac-47d6f2202cc8" name="Default" comment="" />
     <ignored path="SnowTricks.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -753,15 +743,15 @@
       <workItem from="1569842707046" duration="111740000" />
       <workItem from="1570099373964" duration="20772000" />
       <workItem from="1570191215137" duration="19301000" />
-      <workItem from="1570352583750" duration="3103000" />
+      <workItem from="1570352583750" duration="3591000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="197125000" />
+    <option name="totallyTimeSpent" value="197613000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13006397" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
