@@ -4,11 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Image;
 use App\Entity\Trick;
-use App\Services\Une;
+use App\Services\MainPicture;
 use App\Services\Upload;
 use App\Entity\Video;
 use App\Form\TrickType;
-use App\Form\UneType;
+use App\Form\MainPictureTypeType;
 use App\Form\UploadType;
 use App\Form\VideoType;
 use App\Repository\TrickRepository;
@@ -139,8 +139,8 @@ class TrickController extends AbstractController
         $videosTotal = $this->videoRepo->findAll();
 
         //Création forms
-        $uneFile = new Une();
-        $uneType = $this->createForm(UneType::class, $uneFile);
+        $uneFile = new MainPicture();
+        $uneType = $this->createForm(MainPictureTypeType::class, $uneFile);
         $imageFile = new Upload();
         $imageType = $this->createForm(UploadType::class, $imageFile);
         $video = new Video();

@@ -5,7 +5,7 @@ namespace App\Services;
 use Doctrine\ORM\Mapping as ORM;
 
 
-class Une
+class MainPicture
 {
     
     private $id;

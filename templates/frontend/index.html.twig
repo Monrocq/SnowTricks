@@ -3,7 +3,7 @@
 {% block title %}SnowTricks{% endblock %}
 
 {% block stylesheets %}
-    <link href="css/frontend/homepage.css" rel="stylesheet">
+    <link href="/css/frontend/homepage.css" rel="stylesheet">
     <style>
         .trick {
             background-size: cover !important;
@@ -34,10 +34,10 @@
             </div>
             <div class="row flex">
                 {% for trick in tricks %}
-                    {% for image in images %}
-                        {% if image.trick.id == trick.id %}
+                    {% for image in trick.getImages() %}
+                        {% if image.getUne() %}
                             <div class="col-lg-3 col-md-4 col-sm-6">
-                                    <div class="card trick" style="background: url('{{ image.url }}')">
+                                    <div class="card trick" style="background: url('/{{ image.url }}')">
                                         <div class="card-body text-center">
                                             <h6 class="card-title">
                                                 <a href="{{ path('trick.show', {id: trick.id}) }}">

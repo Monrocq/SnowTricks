@@ -68,7 +68,7 @@ class FrontendController extends AbstractController
 
     /**
      * @Route("/", name="frontend")
-     * @Route("/{page}", name="page")
+     * @Route("/index/{page}", name="page")
      * @param Request $request
      * @param int $page
      * @return \Symfony\Component\HttpFoundation\Response
@@ -89,12 +89,12 @@ class FrontendController extends AbstractController
         $nbTricks = count($this->trickRepo->findAll());
         $pagination = $this->pagination($nbTricks);
 
-        $images = $this->imageRepo->findBy(array('une' => 1));
+        //$images = $this->imageRepo->findBy(array('une' => 1));
 
         return $this->render('frontend/index.html.twig', [
             'controller_name' => 'FrontendController',
             'tricks' => $tricks,
-            'images' => $images,
+            //'images' => $images,
             'nb' => count($tricks),
             'pages' => $pagination
         ]);
@@ -120,8 +120,8 @@ class FrontendController extends AbstractController
         }
         
         $une = $this->imageRepo->findOneBy(array('trick' => $trick, 'une' => 1));
-        $images = $this->imageRepo->findBy(array('trick' => $trick));
-        $videos = $this->videoRepo->findBy(array('trick' => $trick));
+        //$images = $this->imageRepo->findBy(array('trick' => $trick));
+        //$videos = $this->videoRepo->findBy(array('trick' => $trick));
         if ($trick->getcategory()) {
             $group_id = $trick->getcategory()->getid();
             $group = $this->categoryRepo->find(array('id' => $group_id));
@@ -150,8 +150,8 @@ class FrontendController extends AbstractController
         return $this->render('frontend/show.html.twig', [
             'trick' => $trick,
             'une' => $une,
-            'images' => $images,
-            'videos' => $videos,
+            //'images' => $images,
+            //'videos' => $videos,
             'group' => $group,
             'form' => $commentTpe->createView(),
             'comments' => $comments,
