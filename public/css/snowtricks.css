@@ -7,5 +7,48 @@
 
 footer {
     color: black;
+    background-color: #e4e4e4;
 }
 
+.pagination {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.pagination a {
+    border: solid black 1px;
+    padding: 4px 8px;
+}
+
+.pagination span {
+    margin-right: 5px;
+}
+
+/* Responsive */
+
+@media screen and (max-width: 640px) {
+    #desktop {
+        display: none;
+    }
+
+    #mobile {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background-color: #e4e4e4;
+        border-top: solid black 1px;
+        z-index: 10;
+    }
+
+    #mobile img {
+        margin: 0 auto;
+        display: block;
+    }
+}
+
+@media screen and (min-width: 640px) {
+    #mobile {
+        display: none;
+    }
+}

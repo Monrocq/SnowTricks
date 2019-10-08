@@ -8,7 +8,7 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <nav class="navbar navbar-expand-md navbar-light bg-light" id="desktop">
             <a class="navbar-brand" href="{{ path('frontend') }}">
                 <img src="/img/logo-Snowtricks.png" id="logo" width="100">
             </a>
@@ -40,10 +40,38 @@
 
             </div>
         </nav>
+
+        <nav id="mobile">
+            <div class="row mt-2">
+                <div class="col-4">
+                    <a href="{{ path('frontend') }}">
+                        <img src="/img/open-iconic-master/svg/home.svg" width="30">
+                    </a>
+                </div>
+                <div class="col-4">
+                    <a href="{{ path('frontend') }}#anchor">
+                        <img src="/img/open-iconic-master/svg/list.svg" width="30">
+                    </a>
+                </div>
+                {% if app.user %}
+                <div class="col-4">
+                    <a href="{{ path('logout') }}">
+                        <img src="/img/open-iconic-master/svg/account-logout.svg" width="30">
+                    </a>
+                </div>
+                {% else %}
+                <div class="col-4">
+                    <a href="{{ path('login') }}">
+                        <img src="/img/open-iconic-master/svg/account-login.svg" width="30">
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </nav>
         {% block body %}{% endblock %}
         <hr>
         <footer>
-            <p class="text-center mt-4 mb-4">Contact : jimmy@snowtricks.com</p>
+            <p class="text-center pt-4 pb-4">Contact : jimmy@snowtricks.com</p>
         </footer>
         {% block javascripts %}{% endblock %}
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

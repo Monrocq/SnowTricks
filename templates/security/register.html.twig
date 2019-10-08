@@ -5,7 +5,11 @@
 {% block stylesheets %}
     <link href="/css/frontend/singlepage.css" rel="stylesheet">
     <style>
-
+        .form-group:last-of-type {
+            display: flex;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
     </style>
 {% endblock %}
 
@@ -22,6 +26,12 @@
             {{ form_start(form) }}
                 <input type="hidden" name="token" value="{{ csrf_token('validation') }}"/>
             {{ form_end(form) }}
+            <p class="text-center">
+                <br>
+                <a href="{{ path('login') }}">
+                    Already an account?
+                </a>
+            </p>
         </div>
     </div>
 

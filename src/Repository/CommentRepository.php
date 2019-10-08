@@ -19,6 +19,18 @@ class CommentRepository extends ServiceEntityRepository
         parent::__construct($registry, Comment::class);
     }
 
+    public function findPage($page, $trick)
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.trick = :trick')
+            ->setParameter('trick', $trick)
+            ->orderBy('p.createdAt', 'DESC')
+            ->setMaxResults(10)
+            ->setFirstResult($page*10-10)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Comment[] Returns an array of Comment objects
     //  */

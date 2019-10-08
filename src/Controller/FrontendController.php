@@ -14,6 +14,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 class FrontendController extends AbstractController
 {
@@ -37,6 +38,8 @@ class FrontendController extends AbstractController
      */
     private $categoryRepo;
 
+    private $paginator;
+
     private $commentRepo;
 
     /**
@@ -50,6 +53,7 @@ class FrontendController extends AbstractController
         VideoRepository $videoRepo,
         CategoryRepository $categoryRepo,
         CommentRepository $commentRepo,
+        PaginatorInterface $paginator,
         ObjectManager $em
     )
     {
@@ -58,33 +62,48 @@ class FrontendController extends AbstractController
         $this->videoRepo = $videoRepo;
         $this->categoryRepo = $categoryRepo;
         $this->commentRepo = $commentRepo;
+        $this->paginator = $paginator;
         $this->em = $em;
     }
 
     /**
      * @Route("/", name="frontend")
+     * @Route("/index/{page}", name="page")
+     * @param Request $request
+     * @param int $page
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index()
+    public function index(Request $request, $page = 1)
     {
         if ($this->container->get('security.authorization_checker')->isGranted('ROLE_NONE')) {
             return $this->render('security/logout.html.twig');
         }
 
-        $tricks = $this->trickRepo->findLastAll();
-        $images = $this->imageRepo->findBy(array('une' => 1));
-        dump($tricks[0]);
+        //$tricks = $this->trickRepo->findLastAll();
+        //$tricks = $this->paginator->paginate($this->trickRepo->createQueryBuilder('p'),
+        //    $request->query->getInt('page', 1),
+        //    10
+        //);
+        
+        $tricks = $this->trickRepo->findPage($page);
+        $nbTricks = count($this->trickRepo->findAll());
+        $pagination = $this->pagination($nbTricks);
+
+        //$images = $this->imageRepo->findBy(array('une' => 1));
+
         return $this->render('frontend/index.html.twig', [
             'controller_name' => 'FrontendController',
             'tricks' => $tricks,
-            'images' => $images,
-            'nb' => count($tricks)
+            //'images' => $images,
+            'nb' => count($tricks),
+            'pages' => $pagination
         ]);
     }
 
     /**
-     * @Route("tricks/details/{id}", name="trick.show")
+     * @Route("tricks/details/{id}/page={page}", name="trick.show")
      */
-    public function show(Trick $trick, Request $request)
+    public function show(Trick $trick, Request $request, $page = 1)
     {
         $comment = new Comment();
         $commentTpe = $this->createForm(CommentType::class, $comment);
@@ -101,15 +120,24 @@ class FrontendController extends AbstractController
         }
         
         $une = $this->imageRepo->findOneBy(array('trick' => $trick, 'une' => 1));
-        $images = $this->imageRepo->findBy(array('trick' => $trick));
-        $videos = $this->videoRepo->findBy(array('trick' => $trick));
+        //$images = $this->imageRepo->findBy(array('trick' => $trick));
+        //$videos = $this->videoRepo->findBy(array('trick' => $trick));
         if ($trick->getcategory()) {
             $group_id = $trick->getcategory()->getid();
             $group = $this->categoryRepo->find(array('id' => $group_id));
         } else {
             $group['title'] = 'Null';
         }
-        $comments = $this->commentRepo->findBy(array('trick' => $trick), array('createdAt' => 'DESC'));
+        //$comments = $this->commentRepo->findBy(array('trick' => $trick), array('createdAt' => 'DESC'));
+        $trickId = $trick->getId();
+        //$comments = $this->paginator->paginate($this->commentRepo->createQueryBuilder('p')->where("p.trick = :trick")->setParameter('trick', $trick)->orderBy('p.createdAt', 'DESC'),
+        //    $request->query->getInt('page', 1),
+        //    10
+        //);
+
+        $comments = $this->commentRepo->findPage($page, $trick);
+        $nbComments = count($this->commentRepo->findBy(array('trick' => $trick)));
+        $pagination = $this->pagination($nbComments);
 
         if ($this->imageRepo->findBy(array('trick' => $trick))[0]) {
             $replace = $this->imageRepo->findBy(array('trick' => $trick))[0]->getUrl();
@@ -122,13 +150,31 @@ class FrontendController extends AbstractController
         return $this->render('frontend/show.html.twig', [
             'trick' => $trick,
             'une' => $une,
-            'images' => $images,
-            'videos' => $videos,
+            //'images' => $images,
+            //'videos' => $videos,
             'group' => $group,
             'form' => $commentTpe->createView(),
             'comments' => $comments,
             'user' => $user,
-            'replace' => $replace
+            'replace' => $replace,
+            'pages' => $pagination
         ]);
+    }
+
+    public function pagination($nbItems)
+    {
+        $numPage = 0;
+        $pages = array();
+        
+        for ($i = (int)$nbItems; $i > 0; $i -= 10) {
+            $numPage++;
+            $pages[] = $numPage;
+        }
+        
+        if (empty($pages)) {
+            $pages[] = 1;
+        }
+        
+        return $pages;
     }
 }

@@ -4,8 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Photo;
 use App\Entity\User;
-use App\Services\Une;
-use App\Form\UneType;
+use App\Services\MainPicture;
+use App\Form\MainPictureType;
 use App\Form\UserType;
 use App\Repository\PhotoRepository;
 use App\Repository\UserRepository;
@@ -94,8 +94,8 @@ class SecurityController extends AbstractController
      */
     public function validation(User $user, Request $request)
     {
-        $photo = new Une();
-        $photoType = $this->createForm(UneType::class, $photo);
+        $photo = new MainPicture();
+        $photoType = $this->createForm(MainPictureType::class, $photo);
         $photoType->handleRequest($request);
         
         $submittedToken = $request->query->get('token');
