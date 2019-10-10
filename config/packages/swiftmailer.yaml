@@ -1,6 +1,7 @@
 swiftmailer:
 #   url: '%env(MAILER_URL)%'
     spool: { type: 'memory' }
+    # Delete this 4 parameters if you use maildev in local
     transport: "%mailer_transport%"
     host:      "%mailer_host%"
     username:  "%mailer_user%"
