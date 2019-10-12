@@ -145,8 +145,6 @@ class FrontendController extends AbstractController
             $replace = null;
         }
 
-        dump($replace);
-
         return $this->render('frontend/show.html.twig', [
             'trick' => $trick,
             'une' => $une,

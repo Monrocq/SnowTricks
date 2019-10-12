@@ -49,3 +49,8 @@
 
 # Google Drive
 /.tmp.drivedownload/
+
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###
