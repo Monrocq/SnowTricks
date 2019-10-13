@@ -14,7 +14,6 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Knp\Component\Pager\PaginatorInterface;
 
 class FrontendController extends AbstractController
 {
@@ -38,8 +37,6 @@ class FrontendController extends AbstractController
      */
     private $categoryRepo;
 
-    private $paginator;
-
     private $commentRepo;
 
     /**
@@ -53,7 +50,6 @@ class FrontendController extends AbstractController
         VideoRepository $videoRepo,
         CategoryRepository $categoryRepo,
         CommentRepository $commentRepo,
-        PaginatorInterface $paginator,
         ObjectManager $em
     )
     {
@@ -62,7 +58,6 @@ class FrontendController extends AbstractController
         $this->videoRepo = $videoRepo;
         $this->categoryRepo = $categoryRepo;
         $this->commentRepo = $commentRepo;
-        $this->paginator = $paginator;
         $this->em = $em;
     }
 
@@ -78,12 +73,6 @@ class FrontendController extends AbstractController
         if ($this->container->get('security.authorization_checker')->isGranted('ROLE_NONE')) {
             return $this->render('security/logout.html.twig');
         }
-
-        //$tricks = $this->trickRepo->findLastAll();
-        //$tricks = $this->paginator->paginate($this->trickRepo->createQueryBuilder('p'),
-        //    $request->query->getInt('page', 1),
-        //    10
-        //);
         
         $tricks = $this->trickRepo->findPage($page);
         $nbTricks = count($this->trickRepo->findAll());
@@ -128,12 +117,6 @@ class FrontendController extends AbstractController
         } else {
             $group['title'] = 'Null';
         }
-        //$comments = $this->commentRepo->findBy(array('trick' => $trick), array('createdAt' => 'DESC'));
-        $trickId = $trick->getId();
-        //$comments = $this->paginator->paginate($this->commentRepo->createQueryBuilder('p')->where("p.trick = :trick")->setParameter('trick', $trick)->orderBy('p.createdAt', 'DESC'),
-        //    $request->query->getInt('page', 1),
-        //    10
-        //);
 
         $comments = $this->commentRepo->findPage($page, $trick);
         $nbComments = count($this->commentRepo->findBy(array('trick' => $trick)));
