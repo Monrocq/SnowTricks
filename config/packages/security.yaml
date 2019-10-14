@@ -36,5 +36,5 @@ security:
 
     encoders:
       App\Entity\User:
-        algorithm: bcrypt
+        algorithm: auto
         cost: 12

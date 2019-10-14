@@ -2,22 +2,31 @@
 
 namespace App\Tests;
 
-use App\Controller\FrontendController;
-//use App\Repository\TrickRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class FrontendControllerTest extends WebTestCase
 {
 
-    public function testToto()
+    protected static function getKernelClass()
     {
-        $client = static::createClient();
-
-        $this->assertEquals(200, 200);
+        return \App\Kernel::class;
     }
 
+    public function testHomepage()
+    {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+    }
 
-
+    public function testSinglepage()
+    {
+        $client = static::createClient();
+        $value = rand(1,10);
+        $url = "/tricks/details/$value/page";
+        $crawler = $client->request('GET', $url);
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+    }
 
 }
 
