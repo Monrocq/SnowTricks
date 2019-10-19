@@ -12,7 +12,7 @@ class SecurityControllerTest extends WebTestCase
         return \App\Kernel::class;
     }
 
-    public function testFakeLoginPage()
+    public function testFakePage()
     {
         $client = static::createClient();
         $crawler = $client->request('GET', '/signin');
@@ -23,7 +23,7 @@ class SecurityControllerTest extends WebTestCase
     {
         $client = static::createClient();
         $crawler = $client->request('GET', '/register');
-        $this->assertEquals(500, $client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 
     public function testLogout()
