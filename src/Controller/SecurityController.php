@@ -53,17 +53,20 @@ class SecurityController extends AbstractController
     /**
      * @param AuthenticationUtils $authenticationUtils
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/register", name="register")
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function register(AuthenticationUtils $authenticationUtils, Request $request, ValidationNotification $notification)
     {
+
+
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
         $user = new User();
         $userType = $this->createForm(UserType::class, $user);
         $userType->handleRequest($request);
-        
+
+        //return Response::create('test', 200, []);
 
         if ($userType->isSubmitted() && $userType->isValid()) {
             $user->setPassword($this->encoder->encodePassword($user, $user->getPassword()));
@@ -85,6 +88,7 @@ class SecurityController extends AbstractController
             'error' => $error,
             'form' => $userType->createView()
         ]);
+
     }
 
     /**
