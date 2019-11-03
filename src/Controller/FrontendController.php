@@ -80,6 +80,8 @@ class FrontendController extends AbstractController
 
         //$images = $this->imageRepo->findBy(array('une' => 1));
 
+        dump($tricks);
+
         return $this->render('frontend/index.html.twig', [
             'controller_name' => 'FrontendController',
             'tricks' => $tricks,
@@ -90,7 +92,7 @@ class FrontendController extends AbstractController
     }
 
     /**
-     * @Route("tricks/details/{id}/page={page}", name="trick.show")
+     * @Route("tricks/details/{id}/page={page}/{slug}", name="trick.show")
      */
     public function show(Trick $trick, Request $request, $page = 1)
     {

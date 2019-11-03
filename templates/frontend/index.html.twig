@@ -41,7 +41,7 @@
                                     <div class="card trick" style="background: url('/{{ image.url }}')">
                                         <div class="card-body text-center">
                                             <h6 class="card-title">
-                                                <a href="{{ path('trick.show', {id: trick.id}) }}">
+                                                <a href="{{ path('trick.show', {id: trick.id, slug: trick.getSlug()}) }}">
                                                     {{ trick.title }}
                                                 </a>
                                             </h6>
