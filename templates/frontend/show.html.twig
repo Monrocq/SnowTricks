@@ -140,7 +140,7 @@
                 <div class="pagination pb-4">
                     <span>Page :</span>
                     {% for page in pages %}
-                        <a href="{{ path('trick.show', {id: trick.id, page: page}) }}">  {{ page }}  </a>
+                        <a href="{{ path('trick.show', {id: trick.id, page: page, slug: trick.getSlug()}) }}">  {{ page }}  </a>
                     {% endfor %}
                 </div>
             </div>

@@ -67,6 +67,8 @@ class Trick
      */
     private $comments;
 
+    private $slug;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -125,6 +127,11 @@ class Trick
         $this->updatedAt = $updatedAt;
 
         return $this;
+    }
+
+    public function getSlug()
+    {
+        return str_replace('/', '-', str_replace(' ', '-', $this->title));
     }
 
     /**
